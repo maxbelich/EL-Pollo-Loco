@@ -31,6 +31,9 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+    }, 16);
+
+    setInterval(() => {
       this.checkThrowObjects();
     }, 50);
   }
@@ -58,9 +61,25 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.statusbar.setPercentage(this.character.life);
+      if (enemy instanceof Chicken) {
+        if (enemy.isDead) return;
+
+        if (this.isStompingOn(enemy) && this.character.isColliding(enemy)) {
+          enemy.hitFromAbove();
+          this.character.speedY = 20;
+          this.character.isJumping = true;
+          return;
+        }
+
+        if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+          this.character.hit();
+          this.statusbar.setPercentage(this.character.life);
+        }
+      } else if (this.character.isColliding(enemy)) {
+        if (!this.character.isHurt()) {
+          this.character.hit();
+          this.statusbar.setPercentage(this.character.life);
+        }
       }
     });
 
@@ -91,6 +110,11 @@ class World {
         }
       }
     });
+  }
+
+  isStompingOn(enemy) {
+    const characterFeet = this.character.y + this.character.height - this.character.offset.bottom;
+    return this.character.speedY < 0 && characterFeet < enemy.y + enemy.height * 0.6;
   }
 
   updateBottleStatusbar() {
