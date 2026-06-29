@@ -4,12 +4,14 @@ let keyboard = new Keyboard();
 
 function init() {
   canvas = document.getElementById("canvas");
-  world = new World(canvas,keyboard);
+  world = new World(canvas, keyboard);
 
   console.log("My Character is", world.character);
 }
 
 window.addEventListener("keydown", (e) => {
+  console.log(e.keyCode);
+
   if (e.keyCode == 39 || e.keyCode == 68) {
     keyboard.RIGHT = true;
   }
@@ -29,7 +31,10 @@ window.addEventListener("keydown", (e) => {
   if (e.keyCode == 32) {
     keyboard.SPACE = true;
   }
-  console.log(e);
+
+  if (e.keyCode == 69) {
+    keyboard.E = true;
+  }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -52,5 +57,7 @@ window.addEventListener("keyup", (e) => {
   if (e.keyCode == 32) {
     keyboard.SPACE = false;
   }
-  console.log(e);
+  if (e.keyCode == 69) {
+    keyboard.E = false;
+  }
 });

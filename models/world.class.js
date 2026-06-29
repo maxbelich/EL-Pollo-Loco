@@ -5,17 +5,46 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  statusbar = new Statusbar();
+  throwableObjects = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.setWorld();
     this.draw();
+    this.setWorld();
+    this.run();
   }
 
   setWorld() {
     this.character.world = this;
+  }
+
+  run() {
+    setInterval(() => {
+      this.checkCollisions();
+      this.checkThrowObjects();
+    }, 200);
+  }
+
+  checkThrowObjects() {
+    let bottle = new ThrowableObject(
+      this.character.x + 100,
+      this.character.y + 100,
+    );
+    if (this.keyboard.E) {
+      this.throwableObjects.push(bottle);
+    }
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.statusbar.setPercentage(this.character.life);
+      }
+    });
   }
 
   draw() {
@@ -27,6 +56,13 @@ class World {
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
+    this.addObjectsToMap(this.throwableObjects);
+
+    //------------Space for fixed objects--------------
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.statusbar);
+    this.ctx.translate(this.camera_x, 0);
+    //-------------------------------------------------
 
     this.ctx.translate(-this.camera_x, 0);
 
@@ -44,42 +80,27 @@ class World {
 
   addToMap(mo) {
     if (mo.otherDirection) {
-      this.ctx.save();
-      this.ctx.translate(mo.width, 0);
-      this.ctx.scale(-1, 1);
-      mo.x = mo.x * -1;
+      this.flipImage(mo);
     }
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    mo.draw(this.ctx);
+
+    mo.drawFrame(this.ctx);
+    mo.drawFrameOffset(this.ctx);
+
     if (mo.otherDirection) {
-      mo.x = mo.x * -1;
-      this.ctx.restore();
+      this.flipImageBack(mo);
     }
   }
 
-  reateBackgroundObjects(tilesToLeft, tilesToRight) {
-    const backgroundObjects = [];
+  flipImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.x = mo.x * -1;
+  }
 
-    for (let tileIndex = -tilesToLeft; tileIndex <= tilesToRight; tileIndex++) {
-      const x = tileIndex * 720;
-      const imageNumber = Math.abs(tileIndex) % 2 === 0 ? 1 : 2;
-
-      backgroundObjects.push(
-        new BackgroundObject("assets/imgs/5_background/layers/air.png", x),
-        new BackgroundObject(
-          `assets/imgs/5_background/layers/3_third_layer/${imageNumber}.png`,
-          x,
-        ),
-        new BackgroundObject(
-          `assets/imgs/5_background/layers/2_second_layer/${imageNumber}.png`,
-          x,
-        ),
-        new BackgroundObject(
-          `assets/imgs/5_background/layers/1_first_layer/${imageNumber}.png`,
-          x,
-        ),
-      );
-    }
-
-    return backgroundObjects;
+  flipImageBack(mo) {
+    mo.x = mo.x * -1;
+    this.ctx.restore();
   }
 }
