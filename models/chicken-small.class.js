@@ -1,27 +1,25 @@
-class Chicken extends MovableObject {
-  x = 450 + Math.random() * 500;
-  y = 345;
-  width = 80;
-  height = 80;
+class ChickenSmall extends MovableObject {
+  x = 450 + Math.random() * 700;
+  y = 385;
+  width = 40;
+  height = 40;
   isDead = false;
-  
+
   IMAGES_WALKING = [
-    "assets/imgs/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-    "assets/imgs/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-    "assets/imgs/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+    "assets/imgs/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "assets/imgs/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "assets/imgs/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
 
   IMAGES_DEAD = [
-    "assets/imgs/3_enemies_chicken/chicken_normal/2_dead/dead.png",
+    "assets/imgs/3_enemies_chicken/chicken_small/2_dead/dead.png",
   ];
 
   constructor(xMin = 450) {
     super();
     this.x = xMin + Math.random() * 500;
-    this.loadImage(
-      "assets/imgs/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-    );
-    this.speed = 2.5 + Math.random() * 0.6;
+    this.loadImage(this.IMAGES_WALKING[0]);
+    this.speed = 2.5 + Math.random() * 1;
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.animate();

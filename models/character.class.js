@@ -101,10 +101,6 @@ class Character extends MovableObject {
           this.isJumping = false;
           if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
-          } else if ((new Date().getTime() - this.lastMoveTime) / 1000 > 5) {
-            this.playAnimation(this.IMAGES_LONG_IDLE);
-          } else {
-            this.playAnimation(this.IMAGES_IDLE);
           }
         }
       }
@@ -130,5 +126,21 @@ class Character extends MovableObject {
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 30);
+
+    setInterval(() => {
+      if (
+        !this.isDead() &&
+        !this.isHurt() &&
+        !this.isAboveGround() &&
+        !this.world.keyboard.RIGHT &&
+        !this.world.keyboard.LEFT
+      ) {
+        if ((new Date().getTime() - this.lastMoveTime) / 1000 > 5) {
+          this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else {
+          this.playAnimation(this.IMAGES_IDLE);
+        }
+      }
+    }, 150);
   }
 }
