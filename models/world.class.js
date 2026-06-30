@@ -15,12 +15,20 @@ class World {
   collectedBottles = 0;
   collectedCoins = 0;
   boss;
+  gameOver = false;
+  gameWon = false;
+  gameEnding = false;
+  imageGameOver = new Image();
+  imageWon = new Image();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.collectibleObjects = this.level.collectables || [];
+    this.imageGameOver.src =
+      "assets/imgs/9_intro_outro_screens/game_over/game over.png";
+    this.imageWon.src = "assets/imgs/You won, you lost/You Win A.png";
     this.draw();
     this.setWorld();
     this.run();
@@ -52,10 +60,9 @@ class World {
       this.bottleThrowCooldown === 0 &&
       this.collectedBottles > 0
     ) {
-      this.throwableObjects.push(new ThrowableObject(
-        this.character.x + 100,
-        this.character.y + 100,
-      ));
+      this.throwableObjects.push(
+        new ThrowableObject(this.character.x + 100, this.character.y + 100),
+      );
       this.collectedBottles--;
       this.updateBottleStatusbar();
       this.bottleThrowCooldown = 10;
@@ -64,7 +71,7 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (enemy instanceof Chicken) {
+      if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
         if (enemy.isDead) return;
 
         if (this.isStompingOn(enemy) && this.character.isColliding(enemy)) {
@@ -75,12 +82,18 @@ class World {
         }
 
         if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-          this.character.hit();
+          this.character.hit(enemy instanceof ChickenSmall ? 2 : 5);
           this.statusbar.setPercentage(this.character.life);
         }
       } else if (enemy instanceof Endboss) {
-        if (this.boss && !this.boss.isDead() && this.boss.isAttacking && this.character.isColliding(this.boss) && !this.character.isHurt()) {
-          this.character.hit();
+        if (
+          this.boss &&
+          !this.boss.isDead() &&
+          this.boss.isAttacking &&
+          this.character.isColliding(this.boss) &&
+          !this.character.isHurt()
+        ) {
+          this.character.hit(10);
           this.statusbar.setPercentage(this.character.life);
         }
       }
@@ -102,6 +115,19 @@ class World {
       }
     });
 
+    if (!this.gameEnding && this.character.isDead()) {
+      this.gameEnding = true;
+      setTimeout(() => {
+        this.gameOver = true;
+      }, 1500);
+    }
+    if (!this.gameEnding && this.boss && this.boss.isDead()) {
+      this.gameEnding = true;
+      setTimeout(() => {
+        this.gameWon = true;
+      }, 1500);
+    }
+
     this.collectibleObjects.forEach((item) => {
       if (!item.collected && this.character.isColliding(item)) {
         item.collect();
@@ -117,15 +143,23 @@ class World {
   }
 
   isStompingOn(enemy) {
-    return this.character.speedY < 0 && this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.6;
+    return (
+      this.character.speedY < 0 &&
+      this.character.y + this.character.height - this.character.offset.bottom <
+        enemy.y + enemy.height * (enemy instanceof ChickenSmall ? 0.73 : 0.6)
+    );
   }
 
   updateBottleStatusbar() {
-    this.bottleStatusbar.setPercentage(Math.max(0, Math.min(100, this.collectedBottles * 20)));
+    this.bottleStatusbar.setPercentage(
+      Math.max(0, Math.min(100, this.collectedBottles * 20)),
+    );
   }
 
   updateCoinStatusbar() {
-    this.coinStatusbar.setPercentage(Math.max(0, Math.min(100, this.collectedCoins * 20)));
+    this.coinStatusbar.setPercentage(
+      Math.max(0, Math.min(100, this.collectedCoins * 20)),
+    );
   }
 
   draw() {
@@ -150,6 +184,24 @@ class World {
     //-------------------------------------------------
 
     this.ctx.translate(-this.camera_x, 0);
+
+    if (this.gameOver) {
+      this.ctx.drawImage(
+        this.imageGameOver,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height,
+      );
+    } else if (this.gameWon) {
+      this.ctx.drawImage(
+        this.imageWon,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height,
+      );
+    }
 
     let self = this;
     requestAnimationFrame(function () {

@@ -58,8 +58,8 @@ class MovableObject extends DrawableObjet {
     );
   }
 
-  hit() {
-    this.life -= 5;
+  hit(damage = 5) {
+    this.life -= damage;
     if (this.life < 0) {
       this.life = 0;
     } else {
