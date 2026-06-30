@@ -14,10 +14,10 @@ class CollectibleObject extends MovableObject {
     this.height = height;
     this.type = type;
     this.offset = {
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
+      top: type === "coin" ? 30 : 0,
+      bottom: type === "coin" ? 30 : 0,
+      right: type === "coin" ? 30 : 0,
+      left: type === "coin" ? 30 : 0,
     };
 
     if (this.type === "coin") {

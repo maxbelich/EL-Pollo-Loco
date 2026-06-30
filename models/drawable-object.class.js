@@ -35,7 +35,7 @@ class DrawableObjet {
   }
 
     drawFrameOffset(ctx) {
-    if (this instanceof Character || this instanceof Chicken) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof CollectibleObject) {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "red";
