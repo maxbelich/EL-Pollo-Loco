@@ -8,11 +8,13 @@ class World {
   statusbar = new Statusbar();
   coinStatusbar = new Statusbar("coin");
   bottleStatusbar = new Statusbar("bottle");
+  endbossStatusbar = new Statusbar("endboss");
   throwableObjects = [];
   collectibleObjects = [];
   bottleThrowCooldown = 0;
   collectedBottles = 0;
   collectedCoins = 0;
+  boss;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -26,6 +28,8 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.boss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (this.boss) this.boss.world = this;
   }
 
   run() {
@@ -48,11 +52,10 @@ class World {
       this.bottleThrowCooldown === 0 &&
       this.collectedBottles > 0
     ) {
-      let bottle = new ThrowableObject(
+      this.throwableObjects.push(new ThrowableObject(
         this.character.x + 100,
         this.character.y + 100,
-      );
-      this.throwableObjects.push(bottle);
+      ));
       this.collectedBottles--;
       this.updateBottleStatusbar();
       this.bottleThrowCooldown = 10;
@@ -75,26 +78,27 @@ class World {
           this.character.hit();
           this.statusbar.setPercentage(this.character.life);
         }
-      } else if (this.character.isColliding(enemy)) {
-        if (!this.character.isHurt()) {
+      } else if (enemy instanceof Endboss) {
+        if (this.boss && !this.boss.isDead() && this.boss.isAttacking && this.character.isColliding(this.boss) && !this.character.isHurt()) {
           this.character.hit();
           this.statusbar.setPercentage(this.character.life);
         }
       }
     });
 
-    const boss = this.level.enemies.find((enemy) => enemy instanceof Endboss);
-
     this.throwableObjects.forEach((bottle) => {
-      const hitBoss =
-        boss &&
-        bottle.x + bottle.width > boss.x + 80 &&
-        bottle.x < boss.x + boss.width - 80 &&
-        bottle.y + bottle.height > boss.y + 80 &&
-        bottle.y < boss.y + boss.height - 80;
-
-      if (!bottle.collected && hitBoss) {
+      if (
+        !bottle.isSplash &&
+        this.boss &&
+        !this.boss.isDead() &&
+        bottle.x + bottle.width > this.boss.x + 80 &&
+        bottle.x < this.boss.x + this.boss.width - 80 &&
+        bottle.y + bottle.height > this.boss.y + 80 &&
+        bottle.y < this.boss.y + this.boss.height - 80
+      ) {
         bottle.hitBoss();
+        this.boss.hit();
+        this.endbossStatusbar.setPercentage(this.boss.life);
       }
     });
 
@@ -113,18 +117,15 @@ class World {
   }
 
   isStompingOn(enemy) {
-    const characterFeet = this.character.y + this.character.height - this.character.offset.bottom;
-    return this.character.speedY < 0 && characterFeet < enemy.y + enemy.height * 0.6;
+    return this.character.speedY < 0 && this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.6;
   }
 
   updateBottleStatusbar() {
-    const percentage = this.collectedBottles * 20;
-    this.bottleStatusbar.setPercentage(Math.max(0, Math.min(100, percentage)));
+    this.bottleStatusbar.setPercentage(Math.max(0, Math.min(100, this.collectedBottles * 20)));
   }
 
   updateCoinStatusbar() {
-    const percentage = this.collectedCoins * 20;
-    this.coinStatusbar.setPercentage(Math.max(0, Math.min(100, percentage)));
+    this.coinStatusbar.setPercentage(Math.max(0, Math.min(100, this.collectedCoins * 20)));
   }
 
   draw() {
@@ -144,6 +145,7 @@ class World {
     this.addToMap(this.statusbar);
     this.addToMap(this.coinStatusbar);
     this.addToMap(this.bottleStatusbar);
+    if (this.boss && this.boss.isAlerted) this.addToMap(this.endbossStatusbar);
     this.ctx.translate(this.camera_x, 0);
     //-------------------------------------------------
 
