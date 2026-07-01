@@ -13,6 +13,7 @@ class World {
   collectibleObjects = [];
   bottleThrowCooldown = 0;
   collectedBottles = 0;
+  maxBottles = 5;
   collectedCoins = 0;
   boss;
   gameOver = false;
@@ -129,15 +130,16 @@ class World {
     }
 
     this.collectibleObjects.forEach((item) => {
-      if (!item.collected && this.character.isColliding(item)) {
+      if (item.collected || !this.character.isColliding(item)) return;
+      if (item.type === "bottle") {
+        if (this.collectedBottles >= this.maxBottles) return;
         item.collect();
-        if (item.type === "bottle") {
-          this.collectedBottles++;
-          this.updateBottleStatusbar();
-        } else if (item.type === "coin") {
-          this.collectedCoins++;
-          this.updateCoinStatusbar();
-        }
+        this.collectedBottles++;
+        this.updateBottleStatusbar();
+      } else if (item.type === "coin") {
+        item.collect();
+        this.collectedCoins++;
+        this.updateCoinStatusbar();
       }
     });
   }
@@ -146,7 +148,7 @@ class World {
     return (
       this.character.speedY < 0 &&
       this.character.y + this.character.height - this.character.offset.bottom <
-        enemy.y + enemy.height * (enemy instanceof ChickenSmall ? 0.73 : 0.6)
+        enemy.y + enemy.height * (enemy instanceof ChickenSmall ? 0.75 : 0.6)
     );
   }
 
