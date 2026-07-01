@@ -7,3 +7,50 @@ body {
 canvas {
     background-color: black;
 }
+
+#canvasWrapper {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
+#startOverlay {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+.game-btn,
+.icon-btn {
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #7a2e10;
+    background: linear-gradient(to bottom, #ffe066, #ffa500);
+    border: 3px solid #7a2e10;
+    border-radius: 12px;
+    text-shadow: 1px 1px 0 #ffd27a;
+    box-shadow: 0 3px 0 #5c220c;
+    cursor: pointer;
+}
+
+.game-btn {
+    font-size: 28px;
+    padding: 10px 36px;
+}
+
+.icon-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 22px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.game-btn:active,
+.icon-btn:active {
+    box-shadow: 0 1px 0 #5c220c;
+    transform: translateY(2px);
+}

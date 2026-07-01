@@ -1,9 +1,38 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let muted = false;
+let startScreenImage = new Image();
+startScreenImage.src =
+  "assets/imgs/9_intro_outro_screens/start/startscreen_2.png";
 
 function init() {
   canvas = document.getElementById("canvas");
+  showStartScreen();
+  document.getElementById("startBtn").addEventListener("click", startGame);
+  document.getElementById("soundBtn").addEventListener("click", toggleSound);
+}
+
+function showStartScreen() {
+  let ctx = canvas.getContext("2d");
+  let draw = () =>
+    ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height);
+
+  if (startScreenImage.complete) {
+    draw();
+  } else {
+    startScreenImage.onload = draw;
+  }
+}
+
+function toggleSound() {
+  muted = !muted;
+  document.getElementById("soundBtn").textContent = muted ? "🔇" : "🔊";
+}
+
+function startGame() {
+  document.getElementById("startOverlay").style.display = "none";
+  initLevel1();
   world = new World(canvas, keyboard);
 
   console.log("My Character is", world.character);
