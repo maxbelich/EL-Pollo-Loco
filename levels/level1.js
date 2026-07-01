@@ -121,6 +121,14 @@ function initLevel1() {
     ),
     new CollectibleObject(
       "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
+      1450,
+      360,
+      60,
+      70,
+      "bottle",
+    ),
+    new CollectibleObject(
+      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
       1600,
       360,
       60,
@@ -130,6 +138,14 @@ function initLevel1() {
     new CollectibleObject(
       "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
       1900,
+      360,
+      60,
+      70,
+      "bottle",
+    ),
+    new CollectibleObject(
+      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
+      2050,
       360,
       60,
       70,

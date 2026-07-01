@@ -6,6 +6,8 @@ class Endboss extends MovableObject {
   speed = 4;
   isAlerted = false;
   isAttacking = false;
+  alertUntil = 0;
+  sightRange = 500;
   deathFrameIndex = 0;
   world;
 
@@ -67,8 +69,16 @@ class Endboss extends MovableObject {
     else this.lastHit = new Date().getTime();
   }
 
+  distanceToPepe() {
+    return Math.abs(this.world.character.x - this.x);
+  }
+
   isPepeNearby() {
-    return this.world.character.x > this.x - 500;
+    return this.distanceToPepe() < this.sightRange;
+  }
+
+  isPepeInAttackRange() {
+    return this.world.character.isColliding(this);
   }
 
   animate() {
@@ -79,25 +89,40 @@ class Endboss extends MovableObject {
           this.y += 50 / this.IMAGES_DEAD.length;
           this.deathFrameIndex++;
         }
-      } else if (this.isHurt()) {
+        return;
+      }
+
+      if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isAttacking) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else if (this.isAlerted) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else {
+        return;
+      }
+
+      if (!this.isAlerted) {
         this.playAnimation(this.IMAGES_WALKING);
         if (this.world && this.isPepeNearby()) {
           this.isAlerted = true;
-          setTimeout(() => {
-            this.isAttacking = true;
-          }, 1600);
+          this.alertUntil = Date.now() + this.IMAGES_ALERT.length * 200;
         }
+        return;
       }
+
+      if (Date.now() < this.alertUntil) {
+        this.playAnimation(this.IMAGES_ALERT);
+        return;
+      }
+
+      this.isAttacking = this.isPepeInAttackRange();
+      this.playAnimation(this.isAttacking ? this.IMAGES_ATTACK : this.IMAGES_WALKING);
     }, 200);
 
     setInterval(() => {
-      if (this.isAttacking && !this.isDead() && !this.isHurt()) {
+      if (
+        this.isAlerted &&
+        !this.isAttacking &&
+        !this.isDead() &&
+        !this.isHurt() &&
+        Date.now() >= this.alertUntil
+      ) {
         this.moveLeft();
       }
     }, 1000 / 40);
