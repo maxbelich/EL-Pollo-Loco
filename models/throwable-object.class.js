@@ -38,7 +38,7 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
     this.moveInterval = setInterval(() => {
       if (!this.isSplash) {
-        this.x += 25;
+        this.x += 20;
       }
     }, 25);
   }
