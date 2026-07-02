@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
   y = 50;
   width = 350;
   height = 400;
-  speed = 4;
+  speed = 12;
   isAlerted = false;
   isAttacking = false;
   alertUntil = 0;
@@ -82,7 +82,12 @@ class Endboss extends MovableObject {
   }
 
   animate() {
+    let tick = 0;
+
     setInterval(() => {
+      const isNewPoseFrame = tick % 3 === 0;
+      tick++;
+
       if (this.isDead()) {
         if (this.deathFrameIndex < this.IMAGES_DEAD.length) {
           this.img = this.imageCache[this.IMAGES_DEAD[this.deathFrameIndex]];
@@ -93,12 +98,12 @@ class Endboss extends MovableObject {
       }
 
       if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
+        if (isNewPoseFrame) this.playAnimation(this.IMAGES_HURT);
         return;
       }
 
       if (!this.isAlerted) {
-        this.playAnimation(this.IMAGES_WALKING);
+        if (isNewPoseFrame) this.playAnimation(this.IMAGES_WALKING);
         if (this.world && this.isPepeNearby()) {
           this.isAlerted = true;
           this.alertUntil = Date.now() + this.IMAGES_ALERT.length * 200;
@@ -107,24 +112,19 @@ class Endboss extends MovableObject {
       }
 
       if (Date.now() < this.alertUntil) {
-        this.playAnimation(this.IMAGES_ALERT);
+        if (isNewPoseFrame) this.playAnimation(this.IMAGES_ALERT);
         return;
       }
 
       this.isAttacking = this.isPepeInAttackRange();
-      this.playAnimation(this.isAttacking ? this.IMAGES_ATTACK : this.IMAGES_WALKING);
-    }, 200);
-
-    setInterval(() => {
-      if (
-        this.isAlerted &&
-        !this.isAttacking &&
-        !this.isDead() &&
-        !this.isHurt() &&
-        Date.now() >= this.alertUntil
-      ) {
+      if (isNewPoseFrame) {
+        this.playAnimation(
+          this.isAttacking ? this.IMAGES_ATTACK : this.IMAGES_WALKING,
+        );
+      }
+      if (!this.isAttacking) {
         this.moveLeft();
       }
-    }, 1000 / 40);
+    }, 1000 / 30);
   }
 }

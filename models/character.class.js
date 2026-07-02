@@ -125,7 +125,7 @@ class Character extends MovableObject {
       }
 
       this.world.camera_x = -this.x + 100;
-    }, 1000 / 30);
+    }, 1000 / 20);
 
     setInterval(() => {
       if (
@@ -141,6 +141,6 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_IDLE);
         }
       }
-    }, 150);
+    }, 175);
   }
 }
