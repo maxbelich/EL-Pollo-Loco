@@ -22,10 +22,11 @@ class World {
   imageGameOver = new Image();
   imageWon = new Image();
 
-  constructor(canvas, keyboard) {
+  constructor(canvas, keyboard, soundManager) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.soundManager = soundManager;
     this.collectibleObjects = this.level.collectables || [];
     this.imageGameOver.src =
       "assets/imgs/9_intro_outro_screens/game_over/game over.png";
@@ -79,12 +80,16 @@ class World {
           enemy.hitFromAbove();
           this.character.speedY = 20;
           this.character.isJumping = true;
+          this.soundManager.play(
+            enemy instanceof ChickenSmall ? "chickenSmallDead" : "chickenDead",
+          );
           return;
         }
 
         if (this.character.isColliding(enemy) && !this.character.isHurt()) {
           this.character.hit(enemy instanceof ChickenSmall ? 2 : 5);
           this.statusbar.setPercentage(this.character.life);
+          this.soundManager.play("hit");
         }
       } else if (enemy instanceof Endboss) {
         if (
@@ -96,6 +101,7 @@ class World {
         ) {
           this.character.hit(10);
           this.statusbar.setPercentage(this.character.life);
+          this.soundManager.play("hit");
         }
       }
     });
@@ -113,11 +119,13 @@ class World {
         bottle.hitBoss();
         this.boss.hit();
         this.endbossStatusbar.setPercentage(this.boss.life);
+        this.soundManager.play("bottleBreak");
       }
     });
 
     if (!this.gameEnding && this.character.isDead()) {
       this.gameEnding = true;
+      this.soundManager.play("characterDead");
       setTimeout(() => {
         this.gameOver = true;
       }, 1500);
@@ -136,10 +144,12 @@ class World {
         item.collect();
         this.collectedBottles++;
         this.updateBottleStatusbar();
+        this.soundManager.play("collectBottle");
       } else if (item.type === "coin") {
         item.collect();
         this.collectedCoins++;
         this.updateCoinStatusbar();
+        this.soundManager.play("collectCoin");
       }
     });
   }
