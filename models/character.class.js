@@ -73,6 +73,7 @@ class Character extends MovableObject {
   ];
 
   lastMoveTime = new Date().getTime();
+  isSnoring = false;
   world;
 
   constructor() {
@@ -121,6 +122,7 @@ class Character extends MovableObject {
         (this.world.keyboard.UP && !this.isJumping)
       ) {
         this.jump();
+        this.world.soundManager.play("jump");
         this.lastMoveTime = new Date().getTime();
       }
 
@@ -128,18 +130,30 @@ class Character extends MovableObject {
     }, 1000 / 20);
 
     setInterval(() => {
-      if (
+      const isIdleEligible =
         !this.isDead() &&
         !this.isHurt() &&
         !this.isAboveGround() &&
         !this.world.keyboard.RIGHT &&
-        !this.world.keyboard.LEFT
+        !this.world.keyboard.LEFT;
+
+      if (
+        isIdleEligible &&
+        (new Date().getTime() - this.lastMoveTime) / 1000 > 5
       ) {
-        if ((new Date().getTime() - this.lastMoveTime) / 1000 > 5) {
-          this.playAnimation(this.IMAGES_LONG_IDLE);
-        } else {
-          this.playAnimation(this.IMAGES_IDLE);
-        }
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+        this.isSnoring = true;
+        this.world.soundManager.startLoop("snoring");
+        return;
+      }
+
+      if (this.isSnoring) {
+        this.isSnoring = false;
+        this.world.soundManager.stopLoop("snoring");
+      }
+
+      if (isIdleEligible) {
+        this.playAnimation(this.IMAGES_IDLE);
       }
     }, 175);
   }

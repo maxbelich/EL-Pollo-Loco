@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let muted = false;
+let soundManager = new SoundManager();
 let startScreenImage = new Image();
 startScreenImage.src =
   "assets/imgs/9_intro_outro_screens/start/startscreen_2.png";
@@ -26,14 +26,15 @@ function showStartScreen() {
 }
 
 function toggleSound() {
-  muted = !muted;
+  const muted = soundManager.toggleMute();
   document.getElementById("soundBtn").textContent = muted ? "🔇" : "🔊";
 }
 
 function startGame() {
   document.getElementById("startOverlay").style.display = "none";
   initLevel1();
-  world = new World(canvas, keyboard);
+  world = new World(canvas, keyboard, soundManager);
+  soundManager.play("gameStart");
 
   console.log("My Character is", world.character);
 }

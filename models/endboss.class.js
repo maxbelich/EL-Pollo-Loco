@@ -107,6 +107,7 @@ class Endboss extends MovableObject {
         if (this.world && this.isPepeNearby()) {
           this.isAlerted = true;
           this.alertUntil = Date.now() + this.IMAGES_ALERT.length * 200;
+          this.world.soundManager.play("endbossApproach");
         }
         return;
       }
