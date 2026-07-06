@@ -36,15 +36,15 @@ class ThrowableObject extends MovableObject {
   throw() {
     this.speedY = 30;
     this.applyGravity();
-    this.moveInterval = setInterval(() => {
+    this.moveInterval = World.track(setInterval(() => {
       if (!this.isSplash) {
         this.x += 20;
       }
-    }, 25);
+    }, 25));
   }
 
   animateBottle() {
-    this.animationInterval = setInterval(() => {
+    this.animationInterval = World.track(setInterval(() => {
       if (this.isSplash) {
         this.splashTimer++;
         this.playAnimation(this.IMAGES_SPLASH);
@@ -56,7 +56,7 @@ class ThrowableObject extends MovableObject {
       } else {
         this.playAnimation(this.IMAGES_BOTTLE);
       }
-    }, 100);
+    }, 100));
   }
 
   hitBoss() {

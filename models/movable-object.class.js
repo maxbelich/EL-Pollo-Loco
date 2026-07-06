@@ -13,7 +13,7 @@ class MovableObject extends DrawableObjet {
   lastHit = 0;
 
   applyGravity() {
-    setInterval(() => {
+    World.track(setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
@@ -22,7 +22,7 @@ class MovableObject extends DrawableObjet {
           this.speedY = 0;
         }
       }
-    }, 1000 / 45);
+    }, 1000 / 45));
   }
 
   isAboveGround() {

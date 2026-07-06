@@ -51,7 +51,7 @@ function goToHome() {
 }
 
 window.addEventListener("keydown", (e) => {
-  console.log(e.keyCode);
+  if (world && (world.gameOver || world.gameWon)) return;
 
   if (e.keyCode == 39 || e.keyCode == 68) {
     keyboard.RIGHT = true;

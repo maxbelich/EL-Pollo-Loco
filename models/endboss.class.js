@@ -84,7 +84,7 @@ class Endboss extends MovableObject {
   animate() {
     let tick = 0;
 
-    setInterval(() => {
+    World.track(setInterval(() => {
       const isNewPoseFrame = tick % 3 === 0;
       tick++;
 
@@ -126,6 +126,6 @@ class Endboss extends MovableObject {
       if (!this.isAttacking) {
         this.moveLeft();
       }
-    }, 1000 / 30);
+    }, 1000 / 30));
   }
 }
