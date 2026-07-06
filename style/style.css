@@ -29,6 +29,7 @@ canvas {
     justify-content: center;
     gap: 16px;
     padding-bottom: 15px;
+    z-index: 1;
 }
 
 .game-btn,
@@ -65,3 +66,44 @@ canvas {
     box-shadow: 0 1px 0 #5c220c;
     transform: translateY(2px);
 }
+
+#touchControls {
+    display: none;
+    position: absolute;
+    inset: 0;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 16px;
+    pointer-events: none;
+}
+
+#touchControls .touch-group {
+    display: flex;
+    gap: 12px;
+    pointer-events: auto;
+}
+
+.touch-btn {
+    position: static;
+    touch-action: none;
+}
+
+#touchControls.dimmed {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+#portraitOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-align: center;
+    padding: 32px;
+    z-index: 9999;
+}
+

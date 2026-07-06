@@ -81,6 +81,7 @@ class World {
     this.keyboard.E = false;
     World.clearAllIntervals();
     document.getElementById("endOverlay").style.display = "flex";
+    document.getElementById("touchControls").classList.add("dimmed");
   }
 
   checkThrowObjects() {
