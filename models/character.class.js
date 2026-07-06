@@ -90,7 +90,7 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    World.track(setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
@@ -127,9 +127,9 @@ class Character extends MovableObject {
       }
 
       this.world.camera_x = -this.x + 100;
-    }, 1000 / 20);
+    }, 1000 / 20));
 
-    setInterval(() => {
+    World.track(setInterval(() => {
       const isIdleEligible =
         !this.isDead() &&
         !this.isHurt() &&
@@ -155,6 +155,6 @@ class Character extends MovableObject {
       if (isIdleEligible) {
         this.playAnimation(this.IMAGES_IDLE);
       }
-    }, 175);
+    }, 175));
   }
 }

@@ -73,6 +73,13 @@ class World {
   showEndOverlay() {
     if (this.endOverlayShown) return;
     this.endOverlayShown = true;
+    this.keyboard.RIGHT = false;
+    this.keyboard.LEFT = false;
+    this.keyboard.UP = false;
+    this.keyboard.DOWN = false;
+    this.keyboard.SPACE = false;
+    this.keyboard.E = false;
+    World.clearAllIntervals();
     document.getElementById("endOverlay").style.display = "flex";
   }
 
@@ -207,7 +214,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    this.addToMap(this.character);
+    if (!this.gameOver) this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.collectibleObjects);
 
@@ -221,6 +228,11 @@ class World {
     //-------------------------------------------------
 
     this.ctx.translate(-this.camera_x, 0);
+
+    if (this.gameOver || this.gameWon) {
+      this.ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
 
     if (this.gameOver) {
       this.ctx.drawImage(

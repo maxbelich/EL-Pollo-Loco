@@ -32,14 +32,14 @@ class ChickenSmall extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    World.track(setInterval(() => {
       if (this.isDead) {
         this.img = this.imageCache[this.IMAGES_DEAD[0]];
       } else {
         this.moveLeft();
         this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 1000 / 20);
+    }, 1000 / 20));
   }
 
   hitFromAbove() {

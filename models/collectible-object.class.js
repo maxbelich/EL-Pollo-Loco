@@ -26,11 +26,11 @@ class CollectibleObject extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    World.track(setInterval(() => {
       if (!this.collected) {
         this.y = this.baseY + Math.sin(Date.now() / 300) * this.floatAmplitude;
       }
-    }, 1000 / 60);
+    }, 1000 / 60));
   }
 
   collect() {
