@@ -10,6 +10,8 @@ function init() {
   canvas = document.getElementById("canvas");
   showStartScreen();
   document.getElementById("startBtn").addEventListener("click", startGame);
+  document.getElementById("restartBtn").addEventListener("click", startGame);
+  document.getElementById("homeBtn").addEventListener("click", goToHome);
   document.getElementById("soundBtn").addEventListener("click", toggleSound);
 }
 
@@ -31,12 +33,21 @@ function toggleSound() {
 }
 
 function startGame() {
+  if (world) world.destroy();
   document.getElementById("startOverlay").style.display = "none";
+  document.getElementById("endOverlay").style.display = "none";
   initLevel1();
   world = new World(canvas, keyboard, soundManager);
   soundManager.play("gameStart");
 
   console.log("My Character is", world.character);
+}
+
+function goToHome() {
+  if (world) world.destroy();
+  document.getElementById("endOverlay").style.display = "none";
+  document.getElementById("startOverlay").style.display = "";
+  showStartScreen();
 }
 
 window.addEventListener("keydown", (e) => {
