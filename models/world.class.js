@@ -1,4 +1,16 @@
 class World {
+  static intervalIds = [];
+
+  static track(id) {
+    World.intervalIds.push(id);
+    return id;
+  }
+
+  static clearAllIntervals() {
+    World.intervalIds.forEach((id) => clearInterval(id));
+    World.intervalIds = [];
+  }
+
   character = new Character();
   level = level1;
   canvas;
@@ -19,6 +31,7 @@ class World {
   gameOver = false;
   gameWon = false;
   gameEnding = false;
+  endOverlayShown = false;
   imageGameOver = new Image();
   imageWon = new Image();
 
@@ -43,13 +56,24 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    World.track(setInterval(() => {
       this.checkCollisions();
-    }, 16);
+    }, 16));
 
-    setInterval(() => {
+    World.track(setInterval(() => {
       this.checkThrowObjects();
-    }, 50);
+    }, 50));
+  }
+
+  destroy() {
+    this.destroyed = true;
+    World.clearAllIntervals();
+  }
+
+  showEndOverlay() {
+    if (this.endOverlayShown) return;
+    this.endOverlayShown = true;
+    document.getElementById("endOverlay").style.display = "flex";
   }
 
   checkThrowObjects() {
@@ -175,6 +199,7 @@ class World {
   }
 
   draw() {
+    if (this.destroyed) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camera_x, 0);
@@ -205,6 +230,7 @@ class World {
         this.canvas.width,
         this.canvas.height,
       );
+      this.showEndOverlay();
     } else if (this.gameWon) {
       this.ctx.drawImage(
         this.imageWon,
@@ -213,6 +239,7 @@ class World {
         this.canvas.width,
         this.canvas.height,
       );
+      this.showEndOverlay();
     }
 
     let self = this;

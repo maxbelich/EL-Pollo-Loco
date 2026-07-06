@@ -20,6 +20,17 @@ canvas {
     bottom: 20px;
 }
 
+#endOverlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px;
+    padding-bottom: 15px;
+}
+
 .game-btn,
 .icon-btn {
     font-family: sans-serif;
