@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/responsive.css" />
 
     <!-- JavaScript -->
     <script src="models/drawable-object.class.js" defer></script>
@@ -26,26 +27,36 @@
     <script src="models/collectible-object.class.js" defer></script>
     <script src="levels/level1.js" defer></script>
     <script src="js/main.js" defer></script>
-
-</head>
-<body onload="init()">
-
+  </head>
+  <body onload="init()">
     <h1>Welcome to EL Pollo Loco!</h1>
 
     <div id="canvasWrapper">
-        <canvas id="canvas" width="720" height="480"></canvas>
+      <canvas id="canvas" width="720" height="480"></canvas>
 
-        <button id="soundBtn" class="icon-btn">🔊</button>
+      <button id="soundBtn" class="icon-btn">🔊</button>
 
-        <div id="startOverlay">
-            <button id="startBtn" class="game-btn">▶ Start</button>
+      <div id="startOverlay">
+        <button id="startBtn" class="game-btn">▶ Start</button>
+      </div>
+
+      <div id="endOverlay">
+        <button id="homeBtn" class="game-btn">Home</button>
+        <button id="restartBtn" class="game-btn">Restart</button>
+      </div>
+
+      <div id="touchControls">
+        <div class="touch-group">
+          <button id="btnLeft" class="icon-btn touch-btn">◀</button>
+          <button id="btnRight" class="icon-btn touch-btn">▶</button>
         </div>
-
-        <div id="endOverlay">
-            <button id="homeBtn" class="game-btn">Home</button>
-            <button id="restartBtn" class="game-btn">Restart</button>
+        <div class="touch-group">
+          <button id="btnThrow" class="icon-btn touch-btn">🍾</button>
+          <button id="btnJump" class="icon-btn touch-btn">⬆</button>
         </div>
+      </div>
     </div>
 
-</body>
+    <div id="portraitOverlay">Please turn device to play.</div>
+  </body>
 </html>

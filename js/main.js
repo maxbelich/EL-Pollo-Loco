@@ -13,6 +13,22 @@ function init() {
   document.getElementById("restartBtn").addEventListener("click", startGame);
   document.getElementById("homeBtn").addEventListener("click", goToHome);
   document.getElementById("soundBtn").addEventListener("click", toggleSound);
+  initTouchControls();
+}
+
+function bindTouchButton(id, key) {
+  const btn = document.getElementById(id);
+  btn.addEventListener("touchstart", (e) => { e.preventDefault(); keyboard[key] = true; });
+  btn.addEventListener("touchend", (e) => { e.preventDefault(); keyboard[key] = false; });
+  btn.addEventListener("touchcancel", (e) => { e.preventDefault(); keyboard[key] = false; });
+  btn.addEventListener("contextmenu", (e) => e.preventDefault());
+}
+
+function initTouchControls() {
+  bindTouchButton("btnLeft", "LEFT");
+  bindTouchButton("btnRight", "RIGHT");
+  bindTouchButton("btnJump", "SPACE");
+  bindTouchButton("btnThrow", "E");
 }
 
 function showStartScreen() {
@@ -36,6 +52,8 @@ function startGame() {
   if (world) world.destroy();
   document.getElementById("startOverlay").style.display = "none";
   document.getElementById("endOverlay").style.display = "none";
+  document.getElementById("touchControls").classList.remove("dimmed");
+  document.body.classList.add("playing");
   initLevel1();
   world = new World(canvas, keyboard, soundManager);
   soundManager.play("gameStart");
@@ -47,6 +65,7 @@ function goToHome() {
   if (world) world.destroy();
   document.getElementById("endOverlay").style.display = "none";
   document.getElementById("startOverlay").style.display = "";
+  document.body.classList.remove("playing");
   showStartScreen();
 }
 
