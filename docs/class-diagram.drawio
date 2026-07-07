@@ -1,0 +1,186 @@
+<mxfile host="65bd71144e">
+    <diagram name="Klassendiagramm" id="el-pollo-loco-classes">
+        <mxGraphModel dx="4065" dy="1948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2300" pageHeight="1900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="drawable" value="&lt;b&gt;DrawableObjet&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;currentImage&lt;hr&gt;+ loadImage(path)&lt;br&gt;+ draw(ctx)&lt;br&gt;+ loadImages(arr)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="810" y="40" width="220" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="movable" value="&lt;b&gt;MovableObject&lt;/b&gt;&lt;hr&gt;speed&lt;br&gt;speedY&lt;br&gt;acceleration&lt;br&gt;otherDirection&lt;br&gt;life&lt;hr&gt;+ applyGravity()&lt;br&gt;+ isAboveGround()&lt;br&gt;+ moveRight()&lt;br&gt;+ moveLeft()&lt;br&gt;+ jump()&lt;br&gt;+ playAnimation(images)&lt;br&gt;+ isColliding(mo)&lt;br&gt;+ hit(damage)&lt;br&gt;+ isDead()&lt;br&gt;+ isHurt()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="810" y="330" width="220" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="statusbar" value="&lt;b&gt;Statusbar&lt;/b&gt;&lt;hr&gt;percentage&lt;hr&gt;+ getImagesForType(type)&lt;br&gt;+ setPercentage(percentage)&lt;br&gt;+ resolveImageIndex()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1950" y="330" width="210" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="character" value="&lt;b&gt;Character&lt;/b&gt;&lt;hr&gt;width&lt;br&gt;height&lt;br&gt;speed&lt;br&gt;isJumping&lt;br&gt;isSnoring&lt;hr&gt;+ animate()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="820" width="170" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="chicken" value="&lt;b&gt;Chicken&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;isDead&lt;hr&gt;+ animate()&lt;br&gt;+ hitFromAbove()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="820" width="170" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="chickensmall" value="&lt;b&gt;ChickenSmall&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;isDead&lt;hr&gt;+ animate()&lt;br&gt;+ hitFromAbove()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="820" width="190" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="endboss" value="&lt;b&gt;Endboss&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;speed&lt;br&gt;isAlerted&lt;br&gt;isAttacking&lt;br&gt;sightRange&lt;hr&gt;+ hit()&lt;br&gt;+ distanceToPepe()&lt;br&gt;+ isPepeNearby()&lt;br&gt;+ isPepeInAttackRange()&lt;br&gt;+ animate()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="820" width="210" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="throwable" value="&lt;b&gt;ThrowableObject&lt;/b&gt;&lt;hr&gt;isSplash&lt;br&gt;splashTimer&lt;hr&gt;+ throw()&lt;br&gt;+ animateBottle()&lt;br&gt;+ hitBoss()&lt;br&gt;+ animateSplash()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="940" y="820" width="210" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="collectible" value="&lt;b&gt;CollectibleObject&lt;/b&gt;&lt;hr&gt;collected&lt;br&gt;type&lt;br&gt;floatAmplitude&lt;hr&gt;+ animate()&lt;br&gt;+ collect()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1190" y="820" width="190" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloud" value="&lt;b&gt;Cloud&lt;/b&gt;&lt;hr&gt;y&lt;br&gt;width&lt;br&gt;height&lt;hr&gt;+ animate()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1420" y="820" width="150" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="background" value="&lt;b&gt;BackgroundObject&lt;/b&gt;&lt;hr&gt;width&lt;br&gt;height" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1610" y="820" width="190" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="level" value="&lt;b&gt;Level&lt;/b&gt;&lt;hr&gt;level_end_x" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="1280" width="150" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="keyboard" value="&lt;b&gt;Keyboard&lt;/b&gt;&lt;hr&gt;LEFT&lt;br&gt;RIGHT&lt;br&gt;UP&lt;br&gt;DOWN&lt;br&gt;SPACE&lt;br&gt;E" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1510" y="1540" width="150" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="soundmanager" value="&lt;b&gt;SoundManager&lt;/b&gt;&lt;hr&gt;muted&lt;hr&gt;+ play(name)&lt;br&gt;+ startLoop(name)&lt;br&gt;+ stopLoop(name)&lt;br&gt;+ toggleMute()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1700" y="1560" width="190" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="world" value="&lt;b&gt;World&lt;/b&gt;&lt;hr&gt;camera_x&lt;br&gt;collectedBottles&lt;br&gt;maxBottles&lt;br&gt;collectedCoins&lt;br&gt;gameOver&lt;br&gt;gameWon&lt;hr&gt;+ setWorld()&lt;br&gt;+ run()&lt;br&gt;+ destroy()&lt;br&gt;+ showEndOverlay()&lt;br&gt;+ checkThrowObjects()&lt;br&gt;+ checkCollisions()&lt;br&gt;+ isStompingOn(enemy)&lt;br&gt;+ updateBottleStatusbar()&lt;br&gt;+ updateCoinStatusbar()&lt;br&gt;+ draw()&lt;br&gt;+ addObjectsToMap(objects)&lt;br&gt;+ addToMap(mo)&lt;br&gt;+ flipImage(mo)&lt;br&gt;+ flipImageBack(mo)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1940" y="1280" width="230" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="movable" target="drawable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.95;entryY=1;shadow=1;" parent="1" source="statusbar" target="drawable" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="2055" y="295"/>
+                            <mxPoint x="1019" y="295"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="character" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="chicken" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="chickensmall" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="endboss" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="throwable" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="collectible" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="cloud" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="background" target="movable" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.15;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="character" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1975" y="1160"/>
+                            <mxPoint x="125" y="1160"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c5" value="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="statusbar" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.4;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="throwable" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="2032" y="1175"/>
+                            <mxPoint x="1045" y="1175"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c7" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.6;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="collectible" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="2078" y="1190"/>
+                            <mxPoint x="1285" y="1190"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c2" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.15;exitY=1;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="level" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1975" y="1780"/>
+                            <mxPoint x="955" y="1780"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c3" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.3;exitY=1;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="keyboard" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="2009" y="1795"/>
+                            <mxPoint x="1585" y="1795"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c4" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.45;exitY=1;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="soundmanager" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="2044" y="1810"/>
+                            <mxPoint x="1795" y="1810"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c8" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.2;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="chicken" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
+                            <mxPoint x="950" y="1205"/>
+                            <mxPoint x="335" y="1205"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c9" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.4;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="chickensmall" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
+                            <mxPoint x="950" y="1220"/>
+                            <mxPoint x="555" y="1220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c10" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.6;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="endboss" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
+                            <mxPoint x="950" y="1235"/>
+                            <mxPoint x="795" y="1235"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c11" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.8;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="cloud" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
+                            <mxPoint x="950" y="1250"/>
+                            <mxPoint x="1495" y="1250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c12" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.95;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="background" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
+                            <mxPoint x="950" y="1265"/>
+                            <mxPoint x="1705" y="1265"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
