@@ -13,7 +13,17 @@ function init() {
   document.getElementById("restartBtn").addEventListener("click", startGame);
   document.getElementById("homeBtn").addEventListener("click", goToHome);
   document.getElementById("soundBtn").addEventListener("click", toggleSound);
+  document.getElementById("howToBtn").addEventListener("click", openHowTo);
+  document.getElementById("howToCloseBtn").addEventListener("click", closeHowTo);
   initTouchControls();
+}
+
+function openHowTo() {
+  document.getElementById("howToOverlay").classList.add("visible");
+}
+
+function closeHowTo() {
+  document.getElementById("howToOverlay").classList.remove("visible");
 }
 
 function bindTouchButton(id, key) {
@@ -51,6 +61,7 @@ function toggleSound() {
 function startGame() {
   if (world) world.destroy();
   document.getElementById("startOverlay").style.display = "none";
+  document.getElementById("howToBtn").style.display = "none";
   document.getElementById("endOverlay").style.display = "none";
   document.getElementById("touchControls").classList.remove("dimmed");
   document.body.classList.add("playing");
@@ -65,6 +76,7 @@ function goToHome() {
   if (world) world.destroy();
   document.getElementById("endOverlay").style.display = "none";
   document.getElementById("startOverlay").style.display = "";
+  document.getElementById("howToBtn").style.display = "";
   document.body.classList.remove("playing");
   showStartScreen();
 }
