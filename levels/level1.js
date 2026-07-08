@@ -2,7 +2,15 @@ let level1;
 
 function initLevel1() {
   level1 = new Level(
-  [
+    createEnemies(),
+    createClouds(),
+    createBackgroundObjects(),
+    createCollectables(),
+  );
+}
+
+function createEnemies() {
+  return [
     new Chicken(),
     new Chicken(),
     new Chicken(),
@@ -21,80 +29,40 @@ function initLevel1() {
     new Chicken(1800),
     new ChickenSmall(1800),
     new ChickenSmall(1800),
-  ],
-  [new Cloud()],
-  [
-    new BackgroundObject("assets/imgs/5_background/layers/air.png", -720),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/3_third_layer/2.png",
-      -720,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/2_second_layer/2.png",
-      -720,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/1_first_layer/2.png",
-      -720,
-    ),
+  ];
+}
 
-    new BackgroundObject("assets/imgs/5_background/layers/air.png", 0),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/3_third_layer/1.png",
-      0,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/2_second_layer/1.png",
-      0,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/1_first_layer/1.png",
-      0,
-    ),
+function createClouds() {
+  return [new Cloud()];
+}
 
-    new BackgroundObject("assets/imgs/5_background/layers/air.png", 720),
+function createBackgroundTile(x, variant) {
+  return [
+    new BackgroundObject("assets/imgs/5_background/layers/air.png", x),
     new BackgroundObject(
-      "assets/imgs/5_background/layers/3_third_layer/2.png",
-      720,
+      `assets/imgs/5_background/layers/3_third_layer/${variant}.png`,
+      x,
     ),
     new BackgroundObject(
-      "assets/imgs/5_background/layers/2_second_layer/2.png",
-      720,
+      `assets/imgs/5_background/layers/2_second_layer/${variant}.png`,
+      x,
     ),
     new BackgroundObject(
-      "assets/imgs/5_background/layers/1_first_layer/2.png",
-      720,
+      `assets/imgs/5_background/layers/1_first_layer/${variant}.png`,
+      x,
     ),
+  ];
+}
 
-    new BackgroundObject("assets/imgs/5_background/layers/air.png", 720 * 2),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/3_third_layer/1.png",
-      720 * 2,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/2_second_layer/1.png",
-      720 * 2,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/1_first_layer/1.png",
-      720 * 2,
-    ),
+function createBackgroundObjects() {
+  const tilePositions = [-720, 0, 720, 720 * 2, 720 * 3];
+  return tilePositions
+    .map((x, i) => createBackgroundTile(x, i % 2 === 0 ? "2" : "1"))
+    .flat();
+}
 
-    new BackgroundObject("assets/imgs/5_background/layers/air.png", 720 * 3),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/3_third_layer/2.png",
-      720 * 3,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/2_second_layer/2.png",
-      720 * 3,
-    ),
-    new BackgroundObject(
-      "assets/imgs/5_background/layers/1_first_layer/2.png",
-      720 * 3,
-    ),
-  ],
-  [
+function createBottles() {
+  return [
     new CollectibleObject(
       "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
       400,
@@ -151,46 +119,19 @@ function initLevel1() {
       70,
       "bottle",
     ),
-    new CollectibleObject(
-      "assets/imgs/8_coin/coin_2.png",
-      600,
-      140,
-      120,
-      120,
-      "coin",
-    ),
-    new CollectibleObject(
-      "assets/imgs/8_coin/coin_2.png",
-      900,
-      220,
-      120,
-      120,
-      "coin",
-    ),
-    new CollectibleObject(
-      "assets/imgs/8_coin/coin_2.png",
-      1200,
-      100,
-      120,
-      120,
-      "coin",
-    ),
-    new CollectibleObject(
-      "assets/imgs/8_coin/coin_2.png",
-      1500,
-      220,
-      120,
-      120,
-      "coin",
-    ),
-    new CollectibleObject(
-      "assets/imgs/8_coin/coin_2.png",
-      1800,
-      140,
-      120,
-      120,
-      "coin",
-    ),
-  ],
-  );
+  ];
+}
+
+function createCoins() {
+  return [
+    new CollectibleObject("assets/imgs/8_coin/coin_2.png", 600, 140, 120, 120, "coin"),
+    new CollectibleObject("assets/imgs/8_coin/coin_2.png", 900, 220, 120, 120, "coin"),
+    new CollectibleObject("assets/imgs/8_coin/coin_2.png", 1200, 100, 120, 120, "coin"),
+    new CollectibleObject("assets/imgs/8_coin/coin_2.png", 1500, 220, 120, 120, "coin"),
+    new CollectibleObject("assets/imgs/8_coin/coin_2.png", 1800, 140, 120, 120, "coin"),
+  ];
+}
+
+function createCollectables() {
+  return [...createBottles(), ...createCoins()];
 }

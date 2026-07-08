@@ -13,16 +13,16 @@ class CollectibleObject extends MovableObject {
     this.width = width;
     this.height = height;
     this.type = type;
-    this.offset = {
-      top: type === "coin" ? 30 : 0,
-      bottom: type === "coin" ? 30 : 0,
-      right: type === "coin" ? 30 : 0,
-      left: type === "coin" ? 30 : 0,
-    };
+    this.offset = this.buildOffset(type);
 
     if (this.type === "coin") {
       this.animate();
     }
+  }
+
+  buildOffset(type) {
+    const inset = type === "coin" ? 30 : 0;
+    return { top: inset, bottom: inset, right: inset, left: inset };
   }
 
   animate() {
