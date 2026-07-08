@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "GameFont";
+  src: url("../assets/fonts/TequilaSunsetRegular-J8ME.ttf") format("truetype"),
+    url("../assets/fonts/TequilasunsetRegular-AlZD.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
