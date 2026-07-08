@@ -1,7 +1,15 @@
+html {
+    height: 100%;
+    background: url("../assets/imgs/5_background/Background.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "GameFont", sans-serif;
+    font-size: 32px;
 }
 
 canvas {
@@ -52,7 +60,12 @@ canvas {
     max-width: 80%;
     text-align: center;
     color: #7a2e10;
-    font-family: sans-serif;
+    font-family: "GameFont", sans-serif;
+}
+
+#howToBox #howToCloseBtn {
+    top: -20px;
+    right: -20px;
 }
 
 #howToBox h2 {
@@ -72,6 +85,7 @@ canvas {
     margin: 8px 0;
     font-size: 18px;
     font-weight: bold;
+    font-family: sans-serif;
 }
 
 #endOverlay {
@@ -88,7 +102,7 @@ canvas {
 
 .game-btn,
 .icon-btn {
-    font-family: sans-serif;
+    font-family: "GameFont", sans-serif;
     font-weight: bold;
     color: #7a2e10;
     background: linear-gradient(to bottom, #ffe066, #ffa500);
