@@ -46,17 +46,21 @@ class ThrowableObject extends MovableObject {
   animateBottle() {
     this.animationInterval = World.track(setInterval(() => {
       if (this.isSplash) {
-        this.splashTimer++;
-        this.playAnimation(this.IMAGES_SPLASH);
-        if (this.splashTimer > 4) {
-          this.collected = true;
-          clearInterval(this.animationInterval);
-          clearInterval(this.moveInterval);
-        }
+        this.advanceSplashAnimation();
       } else {
         this.playAnimation(this.IMAGES_BOTTLE);
       }
     }, 100));
+  }
+
+  advanceSplashAnimation() {
+    this.splashTimer++;
+    this.playAnimation(this.IMAGES_SPLASH);
+    if (this.splashTimer > 4) {
+      this.collected = true;
+      clearInterval(this.animationInterval);
+      clearInterval(this.moveInterval);
+    }
   }
 
   hitBoss() {

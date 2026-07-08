@@ -81,55 +81,29 @@ function goToHome() {
   showStartScreen();
 }
 
-window.addEventListener("keydown", (e) => {
+const KEY_CODES = {
+  RIGHT: [39, 68],
+  LEFT: [37, 65],
+  UP: [38, 87],
+  DOWN: [40, 83],
+  SPACE: [32],
+  E: [69],
+};
+
+function setKeyState(keyCode, value) {
+  for (const [key, codes] of Object.entries(KEY_CODES)) {
+    if (codes.includes(keyCode)) keyboard[key] = value;
+  }
+}
+
+function handleKeyDown(e) {
   if (world && (world.gameOver || world.gameWon)) return;
+  setKeyState(e.keyCode, true);
+}
 
-  if (e.keyCode == 39 || e.keyCode == 68) {
-    keyboard.RIGHT = true;
-  }
+function handleKeyUp(e) {
+  setKeyState(e.keyCode, false);
+}
 
-  if (e.keyCode == 37 || e.keyCode == 65) {
-    keyboard.LEFT = true;
-  }
-
-  if (e.keyCode == 38 || e.keyCode == 87) {
-    keyboard.UP = true;
-  }
-
-  if (e.keyCode == 40 || e.keyCode == 83) {
-    keyboard.DOWN = true;
-  }
-
-  if (e.keyCode == 32) {
-    keyboard.SPACE = true;
-  }
-
-  if (e.keyCode == 69) {
-    keyboard.E = true;
-  }
-});
-
-window.addEventListener("keyup", (e) => {
-  if (e.keyCode == 39 || e.keyCode == 68) {
-    keyboard.RIGHT = false;
-  }
-
-  if (e.keyCode == 37 || e.keyCode == 65) {
-    keyboard.LEFT = false;
-  }
-
-  if (e.keyCode == 38 || e.keyCode == 87) {
-    keyboard.UP = false;
-  }
-
-  if (e.keyCode == 40 || e.keyCode == 83) {
-    keyboard.DOWN = false;
-  }
-
-  if (e.keyCode == 32) {
-    keyboard.SPACE = false;
-  }
-  if (e.keyCode == 69) {
-    keyboard.E = false;
-  }
-});
+window.addEventListener("keydown", handleKeyDown);
+window.addEventListener("keyup", handleKeyUp);

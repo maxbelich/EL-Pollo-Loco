@@ -88,44 +88,56 @@ class Endboss extends MovableObject {
       const isNewPoseFrame = tick % 3 === 0;
       tick++;
 
-      if (this.isDead()) {
-        if (this.deathFrameIndex < this.IMAGES_DEAD.length) {
-          this.img = this.imageCache[this.IMAGES_DEAD[this.deathFrameIndex]];
-          this.y += 50 / this.IMAGES_DEAD.length;
-          this.deathFrameIndex++;
-        }
-        return;
-      }
-
-      if (this.isHurt()) {
-        if (isNewPoseFrame) this.playAnimation(this.IMAGES_HURT);
-        return;
-      }
-
-      if (!this.isAlerted) {
-        if (isNewPoseFrame) this.playAnimation(this.IMAGES_WALKING);
-        if (this.world && this.isPepeNearby()) {
-          this.isAlerted = true;
-          this.alertUntil = Date.now() + this.IMAGES_ALERT.length * 200;
-          this.world.soundManager.play("endbossApproach");
-        }
-        return;
-      }
-
-      if (Date.now() < this.alertUntil) {
-        if (isNewPoseFrame) this.playAnimation(this.IMAGES_ALERT);
-        return;
-      }
-
-      this.isAttacking = this.isPepeInAttackRange();
-      if (isNewPoseFrame) {
-        this.playAnimation(
-          this.isAttacking ? this.IMAGES_ATTACK : this.IMAGES_WALKING,
-        );
-      }
-      if (!this.isAttacking) {
-        this.moveLeft();
-      }
+      if (this.tickDeathAnimation()) return;
+      if (this.tickHurtAnimation(isNewPoseFrame)) return;
+      if (this.tickAlertDetection(isNewPoseFrame)) return;
+      if (this.tickAlertPose(isNewPoseFrame)) return;
+      this.tickAttackBehavior(isNewPoseFrame);
     }, 1000 / 30));
+  }
+
+  tickDeathAnimation() {
+    if (!this.isDead()) return false;
+    if (this.deathFrameIndex < this.IMAGES_DEAD.length) {
+      this.img = this.imageCache[this.IMAGES_DEAD[this.deathFrameIndex]];
+      this.y += 50 / this.IMAGES_DEAD.length;
+      this.deathFrameIndex++;
+    }
+    return true;
+  }
+
+  tickHurtAnimation(isNewPoseFrame) {
+    if (!this.isHurt()) return false;
+    if (isNewPoseFrame) this.playAnimation(this.IMAGES_HURT);
+    return true;
+  }
+
+  tickAlertDetection(isNewPoseFrame) {
+    if (this.isAlerted) return false;
+    if (isNewPoseFrame) this.playAnimation(this.IMAGES_WALKING);
+    if (this.world && this.isPepeNearby()) {
+      this.isAlerted = true;
+      this.alertUntil = Date.now() + this.IMAGES_ALERT.length * 200;
+      this.world.soundManager.play("endbossApproach");
+    }
+    return true;
+  }
+
+  tickAlertPose(isNewPoseFrame) {
+    if (Date.now() >= this.alertUntil) return false;
+    if (isNewPoseFrame) this.playAnimation(this.IMAGES_ALERT);
+    return true;
+  }
+
+  tickAttackBehavior(isNewPoseFrame) {
+    this.isAttacking = this.isPepeInAttackRange();
+    if (isNewPoseFrame) {
+      this.playAnimation(
+        this.isAttacking ? this.IMAGES_ATTACK : this.IMAGES_WALKING,
+      );
+    }
+    if (!this.isAttacking) {
+      this.moveLeft();
+    }
   }
 }
