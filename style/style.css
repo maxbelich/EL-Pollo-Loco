@@ -153,6 +153,15 @@ canvas {
     border-radius: 12px;
 }
 
+#volumeSlider {
+    position: absolute;
+    top: 30px;
+    right: 136px;
+    width: 90px;
+    accent-color: #ffa500;
+    cursor: pointer;
+}
+
 .game-btn:active,
 .icon-btn:active {
     box-shadow: 0 1px 0 #5c220c;
