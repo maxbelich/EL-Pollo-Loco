@@ -106,8 +106,10 @@ class World {
   }
 
   throwBottle() {
+    const otherDirection = this.character.otherDirection;
+    const spawnX = this.character.x + (otherDirection ? -20 : 100);
     this.throwableObjects.push(
-      new ThrowableObject(this.character.x + 100, this.character.y + 100),
+      new ThrowableObject(spawnX, this.character.y + 100, otherDirection),
     );
     this.collectedBottles--;
     this.updateBottleStatusbar();

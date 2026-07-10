@@ -20,7 +20,7 @@ class ThrowableObject extends MovableObject {
   moveInterval;
   animationInterval;
 
-  constructor(x, y) {
+  constructor(x, y, otherDirection = false) {
     super();
     this.loadImage(this.IMAGES_BOTTLE[0]);
     this.loadImages(this.IMAGES_BOTTLE);
@@ -29,6 +29,7 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.height = 80;
     this.width = 60;
+    this.otherDirection = otherDirection;
     this.throw();
     this.animateBottle();
   }
@@ -36,9 +37,10 @@ class ThrowableObject extends MovableObject {
   throw() {
     this.speedY = 30;
     this.applyGravity();
+    const direction = this.otherDirection ? -1 : 1;
     this.moveInterval = World.track(setInterval(() => {
       if (!this.isSplash) {
-        this.x += 20;
+        this.x += 20 * direction;
       }
     }, 25));
   }
