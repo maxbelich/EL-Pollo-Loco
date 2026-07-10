@@ -36,10 +36,19 @@ class ChickenSmall extends MovableObject {
       if (this.isDead) {
         this.img = this.imageCache[this.IMAGES_DEAD[0]];
       } else {
-        this.moveLeft();
+        this.checkMapBounds();
+        this.otherDirection ? this.moveRight() : this.moveLeft();
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 1000 / 20));
+  }
+
+  checkMapBounds() {
+    if (this.x <= 0) {
+      this.otherDirection = true;
+    } else if (this.x >= 2200) {
+      this.otherDirection = false;
+    }
   }
 
   hitFromAbove() {
