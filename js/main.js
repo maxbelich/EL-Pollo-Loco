@@ -13,11 +13,35 @@ function init() {
   document.getElementById("restartBtn").addEventListener("click", startGame);
   document.getElementById("homeBtn").addEventListener("click", goToHome);
   document.getElementById("soundBtn").addEventListener("click", toggleSound);
+  document.getElementById("volumeSlider").addEventListener("input", handleVolumeChange);
   document.getElementById("howToBtn").addEventListener("click", openHowTo);
   document.getElementById("howToCloseBtn").addEventListener("click", closeHowTo);
   document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
   document.addEventListener("fullscreenchange", updateFullscreenIcon);
   initTouchControls();
+  applyStoredSoundSettings();
+  startBackgroundMusic();
+}
+
+function applyStoredSoundSettings() {
+  document.getElementById("soundBtn").textContent = soundManager.muted ? "🔇" : "🔊";
+  document.getElementById("volumeSlider").value = soundManager.volume;
+}
+
+function handleVolumeChange(e) {
+  soundManager.setVolume(Number(e.target.value));
+}
+
+function startBackgroundMusic() {
+  soundManager.startLoop("musicTheme")?.catch(() => {
+    const resume = () => {
+      soundManager.loops.musicTheme?.play();
+      document.removeEventListener("pointerdown", resume);
+      document.removeEventListener("keydown", resume);
+    };
+    document.addEventListener("pointerdown", resume);
+    document.addEventListener("keydown", resume);
+  });
 }
 
 const EXPAND_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 9 4 4 9 4"/><polyline points="15 4 20 4 20 9"/><polyline points="20 15 20 20 15 20"/><polyline points="9 20 4 20 4 15"/></svg>`;
