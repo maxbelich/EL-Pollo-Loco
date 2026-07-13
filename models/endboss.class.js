@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
   alertUntil = 0;
   sightRange = 500;
   deathFrameIndex = 0;
+  bottleDropsGiven = 0;
   world;
 
   IMAGES_WALKING = [

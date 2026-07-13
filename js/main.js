@@ -152,6 +152,7 @@ function setKeyState(keyCode, value) {
 
 function handleKeyDown(e) {
   if (world && (world.gameOver || world.gameWon)) return;
+  if (e.code === "KeyQ" && world && !e.repeat) world.exchangeCoinsForBottle();
   setKeyState(e.keyCode, true);
 }
 
