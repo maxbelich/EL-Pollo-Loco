@@ -122,7 +122,11 @@ class Character extends MovableObject {
 
   handleMovementInput() {
     if (this.isDead()) return;
+    this.handleHorizontalMovement();
+    this.handleJumpInput();
+  }
 
+  handleHorizontalMovement() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
       this.otherDirection = false;
@@ -134,7 +138,9 @@ class Character extends MovableObject {
       this.otherDirection = true;
       this.lastMoveTime = new Date().getTime();
     }
+  }
 
+  handleJumpInput() {
     if (
       (this.world.keyboard.SPACE && !this.isJumping) ||
       (this.world.keyboard.UP && !this.isJumping)
@@ -146,34 +152,43 @@ class Character extends MovableObject {
   }
 
   animateIdle() {
-    World.track(
-      setInterval(() => {
-        const isIdleEligible =
-          !this.isDead() &&
-          !this.isHurt() &&
-          !this.isAboveGround() &&
-          !this.world.keyboard.RIGHT &&
-          !this.world.keyboard.LEFT;
+    World.track(setInterval(() => this.tickIdleState(), 175));
+  }
 
-        if (
-          isIdleEligible &&
-          (new Date().getTime() - this.lastMoveTime) / 1000 > 5
-        ) {
-          this.playAnimation(this.IMAGES_LONG_IDLE);
-          this.isSnoring = true;
-          this.world.soundManager.startLoop("snoring");
-          return;
-        }
+  tickIdleState() {
+    const eligible = this.isIdleEligible();
+    if (eligible && this.isLongIdleDue()) {
+      this.startLongIdle();
+      return;
+    }
+    this.stopSnoringIfActive();
+    if (eligible) this.playAnimation(this.IMAGES_IDLE);
+  }
 
-        if (this.isSnoring) {
-          this.isSnoring = false;
-          this.world.soundManager.stopLoop("snoring");
-        }
-
-        if (isIdleEligible) {
-          this.playAnimation(this.IMAGES_IDLE);
-        }
-      }, 175),
+  isIdleEligible() {
+    return (
+      !this.isDead() &&
+      !this.isHurt() &&
+      !this.isAboveGround() &&
+      !this.world.keyboard.RIGHT &&
+      !this.world.keyboard.LEFT
     );
+  }
+
+  isLongIdleDue() {
+    return (new Date().getTime() - this.lastMoveTime) / 1000 > 5;
+  }
+
+  startLongIdle() {
+    this.playAnimation(this.IMAGES_LONG_IDLE);
+    this.isSnoring = true;
+    this.world.soundManager.startLoop("snoring");
+  }
+
+  stopSnoringIfActive() {
+    if (this.isSnoring) {
+      this.isSnoring = false;
+      this.world.soundManager.stopLoop("snoring");
+    }
   }
 }

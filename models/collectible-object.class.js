@@ -8,16 +8,12 @@ class CollectibleObject extends MovableObject {
     super();
     this.loadImage(imagePath);
     this.x = x;
-    this.y = y;
-    this.baseY = y;
+    this.y = this.baseY = y;
     this.width = width;
     this.height = height;
     this.type = type;
     this.offset = this.buildOffset(type);
-
-    if (this.type === "coin") {
-      this.animate();
-    }
+    if (this.type === "coin") this.animate();
   }
 
   buildOffset(type) {

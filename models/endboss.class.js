@@ -85,19 +85,15 @@ class Endboss extends MovableObject {
 
   animate() {
     let tick = 0;
-
-    World.track(
-      setInterval(() => {
-        const isNewPoseFrame = tick % 3 === 0;
-        tick++;
-
-        if (this.tickDeathAnimation()) return;
-        if (this.tickHurtAnimation(isNewPoseFrame)) return;
-        if (this.tickAlertDetection(isNewPoseFrame)) return;
-        if (this.tickAlertPose(isNewPoseFrame)) return;
-        this.tickAttackBehavior(isNewPoseFrame);
-      }, 1000 / 30),
-    );
+    World.track(setInterval(() => {
+      const isNewPoseFrame = tick % 3 === 0;
+      tick++;
+      if (this.tickDeathAnimation()) return;
+      if (this.tickHurtAnimation(isNewPoseFrame)) return;
+      if (this.tickAlertDetection(isNewPoseFrame)) return;
+      if (this.tickAlertPose(isNewPoseFrame)) return;
+      this.tickAttackBehavior(isNewPoseFrame);
+    }, 1000 / 30));
   }
 
   tickDeathAnimation() {

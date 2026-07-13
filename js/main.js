@@ -9,6 +9,14 @@ startScreenImage.src =
 function init() {
   canvas = document.getElementById("canvas");
   showStartScreen();
+  bindControlButtons();
+  bindOverlayBackdropClicks();
+  initTouchControls();
+  applyStoredSoundSettings();
+  startBackgroundMusic();
+}
+
+function bindControlButtons() {
   document.getElementById("startBtn").addEventListener("click", startGame);
   document.getElementById("restartBtn").addEventListener("click", startGame);
   document.getElementById("homeBtn").addEventListener("click", goToHome);
@@ -16,19 +24,19 @@ function init() {
   document.getElementById("volumeSlider").addEventListener("input", handleVolumeChange);
   document.getElementById("howToBtn").addEventListener("click", openHowTo);
   document.getElementById("howToCloseBtn").addEventListener("click", closeHowTo);
+  document.getElementById("settingsBtn").addEventListener("click", openSettings);
+  document.getElementById("settingsCloseBtn").addEventListener("click", closeSettings);
+  document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", updateFullscreenIcon);
+}
+
+function bindOverlayBackdropClicks() {
   document.getElementById("howToOverlay").addEventListener("click", (event) => {
     if (event.target.id === "howToOverlay") closeHowTo();
   });
-  document.getElementById("settingsBtn").addEventListener("click", openSettings);
-  document.getElementById("settingsCloseBtn").addEventListener("click", closeSettings);
   document.getElementById("settingsOverlay").addEventListener("click", (event) => {
     if (event.target.id === "settingsOverlay") closeSettings();
   });
-  document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
-  document.addEventListener("fullscreenchange", updateFullscreenIcon);
-  initTouchControls();
-  applyStoredSoundSettings();
-  startBackgroundMusic();
 }
 
 function applyStoredSoundSettings() {

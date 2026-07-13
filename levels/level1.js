@@ -11,24 +11,11 @@ function initLevel1() {
 
 function createEnemies() {
   return [
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new Endboss(),
-    new ChickenSmall(),
-    new ChickenSmall(),
-    new ChickenSmall(),
-    new ChickenSmall(),
-    new ChickenSmall(),
-    new ChickenSmall(),
-    new Chicken(1800),
-    new Chicken(1800),
-    new ChickenSmall(1800),
-    new ChickenSmall(1800),
-    new Chicken(1800),
-    new Chicken(1800),
-    new ChickenSmall(1800),
-    new ChickenSmall(1800),
+    new Chicken(), new Chicken(), new Chicken(), new Endboss(),
+    new ChickenSmall(), new ChickenSmall(), new ChickenSmall(),
+    new ChickenSmall(), new ChickenSmall(), new ChickenSmall(),
+    new Chicken(1800), new Chicken(1800), new ChickenSmall(1800), new ChickenSmall(1800),
+    new Chicken(1800), new Chicken(1800), new ChickenSmall(1800), new ChickenSmall(1800),
   ];
 }
 
@@ -39,18 +26,9 @@ function createClouds() {
 function createBackgroundTile(x, variant) {
   return [
     new BackgroundObject("assets/imgs/5_background/layers/air.png", x),
-    new BackgroundObject(
-      `assets/imgs/5_background/layers/3_third_layer/${variant}.png`,
-      x,
-    ),
-    new BackgroundObject(
-      `assets/imgs/5_background/layers/2_second_layer/${variant}.png`,
-      x,
-    ),
-    new BackgroundObject(
-      `assets/imgs/5_background/layers/1_first_layer/${variant}.png`,
-      x,
-    ),
+    new BackgroundObject(`assets/imgs/5_background/layers/3_third_layer/${variant}.png`, x),
+    new BackgroundObject(`assets/imgs/5_background/layers/2_second_layer/${variant}.png`, x),
+    new BackgroundObject(`assets/imgs/5_background/layers/1_first_layer/${variant}.png`, x),
   ];
 }
 
@@ -63,62 +41,13 @@ function createBackgroundObjects() {
 
 function createBottles() {
   return [
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-      400,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-      900,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-      1300,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-      1450,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-      1600,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-      1900,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
-    new CollectibleObject(
-      "assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-      2050,
-      360,
-      60,
-      70,
-      "bottle",
-    ),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png", 400, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png", 900, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png", 1300, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png", 1450, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png", 1600, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png", 1900, 360, 60, 70, "bottle"),
+    new CollectibleObject("assets/imgs/6_salsa_bottle/2_salsa_bottle_on_ground.png", 2050, 360, 60, 70, "bottle"),
   ];
 }
 
