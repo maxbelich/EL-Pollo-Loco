@@ -21,6 +21,8 @@ class SoundManager {
     collectCoin: "assets/audio/collectibles/collectSound.wav",
     collectBottle: "assets/audio/collectibles/bottleCollectSound.wav",
     endbossApproach: "assets/audio/endboss/endbossApproach.wav",
+    endbossHit: "assets/audio/endboss/endboss_hit.mp3",
+    endbossDead: "assets/audio/endboss/endboss_dead.mp3",
     gameStart: "assets/audio/game/gameStart.mp3",
     win: "assets/audio/game/tunetank.com_win-1.wav",
     lose: "assets/audio/game/tunetank.com_lose.wav",

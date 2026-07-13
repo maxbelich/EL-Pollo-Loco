@@ -129,8 +129,6 @@ function startGame() {
   initLevel1();
   world = new World(canvas, keyboard, soundManager);
   soundManager.play("gameStart");
-
-  console.log("My Character is", world.character);
 }
 
 function goToHome() {

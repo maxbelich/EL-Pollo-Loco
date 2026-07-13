@@ -10,6 +10,7 @@ class Endboss extends MovableObject {
   sightRange = 500;
   deathFrameIndex = 0;
   bottleDropsGiven = 0;
+  hurtDuration = 0.3;
   world;
 
   IMAGES_WALKING = [
@@ -85,16 +86,18 @@ class Endboss extends MovableObject {
   animate() {
     let tick = 0;
 
-    World.track(setInterval(() => {
-      const isNewPoseFrame = tick % 3 === 0;
-      tick++;
+    World.track(
+      setInterval(() => {
+        const isNewPoseFrame = tick % 3 === 0;
+        tick++;
 
-      if (this.tickDeathAnimation()) return;
-      if (this.tickHurtAnimation(isNewPoseFrame)) return;
-      if (this.tickAlertDetection(isNewPoseFrame)) return;
-      if (this.tickAlertPose(isNewPoseFrame)) return;
-      this.tickAttackBehavior(isNewPoseFrame);
-    }, 1000 / 30));
+        if (this.tickDeathAnimation()) return;
+        if (this.tickHurtAnimation(isNewPoseFrame)) return;
+        if (this.tickAlertDetection(isNewPoseFrame)) return;
+        if (this.tickAlertPose(isNewPoseFrame)) return;
+        this.tickAttackBehavior(isNewPoseFrame);
+      }, 1000 / 30),
+    );
   }
 
   tickDeathAnimation() {
