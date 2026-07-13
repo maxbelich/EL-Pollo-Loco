@@ -84,6 +84,7 @@ class World {
     this.keyboard.SPACE = false;
     this.keyboard.E = false;
     World.clearAllIntervals();
+    this.soundManager.play(this.gameWon ? "win" : "lose");
     document.getElementById("endOverlay").style.display = "flex";
     document.getElementById("touchControls").classList.add("dimmed");
   }
@@ -150,7 +151,11 @@ class World {
       return;
     }
 
-    if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+    if (
+      this.character.isColliding(enemy) &&
+      !this.character.isHurt() &&
+      !this.character.isDead()
+    ) {
       this.character.hit(enemy instanceof ChickenSmall ? 2 : 5);
       this.statusbar.setPercentage(this.character.life);
       this.soundManager.play("hit");
@@ -163,7 +168,8 @@ class World {
       !this.boss.isDead() &&
       this.boss.isAttacking &&
       this.character.isColliding(this.boss) &&
-      !this.character.isHurt()
+      !this.character.isHurt() &&
+      !this.character.isDead()
     ) {
       this.character.hit(10);
       this.statusbar.setPercentage(this.character.life);

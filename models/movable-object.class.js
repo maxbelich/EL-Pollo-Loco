@@ -64,11 +64,8 @@ class MovableObject extends DrawableObjet {
 
   hit(damage = 5) {
     this.life -= damage;
-    if (this.life < 0) {
-      this.life = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
+    if (this.life < 0) this.life = 0;
+    this.lastHit = new Date().getTime();
   }
 
   isDead() {
