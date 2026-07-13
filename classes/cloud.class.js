@@ -1,3 +1,7 @@
+/**
+ * Cloud that drifts across the background.
+ * @extends MovableObject
+ */
 class Cloud extends MovableObject {
   y = 20;
   width = 500;
@@ -11,6 +15,7 @@ class Cloud extends MovableObject {
     this.animate();
   }
 
+  /** Moves the cloud to the left. */
   animate() {
     this.moveLeft();
   }

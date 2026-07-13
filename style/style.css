@@ -13,6 +13,7 @@ body {
 }
 
 h1 {
+    font-size: 40px;
     text-align: center;
     padding: 0 16px;
 }
@@ -86,6 +87,7 @@ canvas {
 
 #howToBox h2 {
     margin: 0 0 16px;
+    font-size: 20px;
     text-shadow: 1px 1px 0 #ffd27a;
 }
 
@@ -205,6 +207,7 @@ canvas {
 
 #settingsBox h2 {
     margin: 0 0 20px;
+    font-size: 20px;
     text-shadow: 1px 1px 0 #ffd27a;
 }
 
@@ -263,6 +266,15 @@ canvas {
 #touchControls.dimmed {
     opacity: 0.4;
     pointer-events: none;
+}
+
+#btnExchange {
+    display: none;
+    position: absolute;
+    left: 30.6%;
+    top: 14.4%;
+    font-size: 14px;
+    padding: 6px 12px;
 }
 
 #portraitOverlay {

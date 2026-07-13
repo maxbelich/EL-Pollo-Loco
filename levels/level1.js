@@ -1,5 +1,6 @@
 let level1;
 
+/** Builds level 1 with its enemies, clouds, background, and items. */
 function initLevel1() {
   level1 = new Level(
     createEnemies(),
@@ -9,6 +10,10 @@ function initLevel1() {
   );
 }
 
+/**
+ * Creates the enemies for level 1.
+ * @returns {Array}
+ */
 function createEnemies() {
   return [
     new Chicken(), new Chicken(), new Chicken(), new Endboss(),
@@ -19,10 +24,20 @@ function createEnemies() {
   ];
 }
 
+/**
+ * Creates the clouds for level 1.
+ * @returns {Cloud[]}
+ */
 function createClouds() {
   return [new Cloud()];
 }
 
+/**
+ * Creates one background tile (all four parallax layers) at the given x position.
+ * @param {number} x - horizontal position of the tile
+ * @param {string} variant - image variant ("1" or "2")
+ * @returns {BackgroundObject[]}
+ */
 function createBackgroundTile(x, variant) {
   return [
     new BackgroundObject("assets/imgs/5_background/layers/air.png", x),
@@ -32,6 +47,10 @@ function createBackgroundTile(x, variant) {
   ];
 }
 
+/**
+ * Creates all background tiles that make up the level's parallax background.
+ * @returns {BackgroundObject[]}
+ */
 function createBackgroundObjects() {
   const tilePositions = [-720, 0, 720, 720 * 2, 720 * 3];
   return tilePositions
@@ -39,6 +58,10 @@ function createBackgroundObjects() {
     .flat();
 }
 
+/**
+ * Creates the collectible bottles for level 1.
+ * @returns {CollectibleObject[]}
+ */
 function createBottles() {
   return [
     new CollectibleObject("assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png", 400, 360, 60, 70, "bottle"),
@@ -51,6 +74,10 @@ function createBottles() {
   ];
 }
 
+/**
+ * Creates the collectible coins for level 1.
+ * @returns {CollectibleObject[]}
+ */
 function createCoins() {
   return [
     new CollectibleObject("assets/imgs/8_coin/coin_2.png", 600, 140, 120, 120, "coin"),
@@ -61,6 +88,10 @@ function createCoins() {
   ];
 }
 
+/**
+ * Combines bottles and coins into the full collectables list.
+ * @returns {CollectibleObject[]}
+ */
 function createCollectables() {
   return [...createBottles(), ...createCoins()];
 }

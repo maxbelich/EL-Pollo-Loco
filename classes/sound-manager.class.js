@@ -1,9 +1,11 @@
+/** Plays and manages all game sounds, including looping tracks and mute/volume state. */
 class SoundManager {
   muted = false;
   volume = 0.5;
   musicVolume = 0.2;
   loops = {};
 
+  /** Restores mute and volume settings from local storage. */
   constructor() {
     const storedMuted = localStorage.getItem("soundMuted");
     const storedVolume = localStorage.getItem("soundVolume");
@@ -30,6 +32,10 @@ class SoundManager {
     musicTheme: "assets/audio/game/Slinger Swagger (loop).ogg",
   };
 
+  /**
+   * Plays a sound once, unless muted.
+   * @param {string} name - key from the sounds list
+   */
   play(name) {
     if (this.muted) return;
     const path = this.sounds[name];
@@ -39,6 +45,11 @@ class SoundManager {
     audio.play();
   }
 
+  /**
+   * Starts a looping sound if it isn't already playing.
+   * @param {string} name - key from the sounds list
+   * @returns {Promise|undefined} play() promise, if started
+   */
   startLoop(name) {
     if (this.loops[name]) return;
     const path = this.sounds[name];
@@ -51,6 +62,10 @@ class SoundManager {
     return audio.play();
   }
 
+  /**
+   * Stops and resets a looping sound.
+   * @param {string} name - key from the sounds list
+   */
   stopLoop(name) {
     const audio = this.loops[name];
     if (!audio) return;
@@ -59,10 +74,19 @@ class SoundManager {
     delete this.loops[name];
   }
 
+  /**
+   * Toggles mute on/off.
+   * @returns {boolean} new muted state
+   */
   toggleMute() {
     return this.setMuted(!this.muted);
   }
 
+  /**
+   * Sets the muted state and applies it to all running loops.
+   * @param {boolean} muted - new muted state
+   * @returns {boolean} the applied muted state
+   */
   setMuted(muted) {
     this.muted = muted;
     Object.values(this.loops).forEach((audio) => (audio.muted = this.muted));
@@ -70,6 +94,10 @@ class SoundManager {
     return this.muted;
   }
 
+  /**
+   * Sets the volume and applies it to all running loops.
+   * @param {number} value - volume from 0 to 1
+   */
   setVolume(value) {
     this.volume = value;
     Object.values(this.loops).forEach((audio) => (audio.volume = value));

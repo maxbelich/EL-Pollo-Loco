@@ -1,4 +1,8 @@
-class Statusbar extends DrawableObjet {
+/**
+ * Status bar showing life, coins, bottles, or endboss health as an image.
+ * @extends DrawableObject
+ */
+class Statusbar extends DrawableObject {
   IMAGES_LIFE = [
     "assets/imgs/7_statusbars/1_statusbar/2_statusbar_health/green/0.png",
     "assets/imgs/7_statusbars/1_statusbar/2_statusbar_health/green/20.png",
@@ -38,6 +42,7 @@ class Statusbar extends DrawableObjet {
   percentage = 100;
   images = [];
 
+  /** @param {string} [type] - bar type: "life", "coin", "bottle", or "endboss" */
   constructor(type = "life") {
     super();
     this.images = this.getImagesForType(type);
@@ -49,6 +54,11 @@ class Statusbar extends DrawableObjet {
     this.setPercentage(type === "life" || type === "endboss" ? 100 : 0);
   }
 
+  /**
+   * Returns the image set matching the given bar type.
+   * @param {string} type - bar type
+   * @returns {string[]}
+   */
   getImagesForType(type) {
     if (type === "coin") {
       return this.IMAGES_COIN;
@@ -60,14 +70,24 @@ class Statusbar extends DrawableObjet {
     return this.IMAGES_LIFE;
   }
 
+  /**
+   * Sets the fill percentage and updates the displayed image.
+   * @param {number} percentage - value from 0 to 100
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Converts the current percentage into an image index (0-5).
+   * Reacts to the smallest loss immediately and never looks empty above 0%.
+   * @returns {number}
+   */
   resolveImageIndex() {
-    const step = Math.ceil(this.percentage / 20);
-    return Math.min(5, Math.max(0, step));
+    if (this.percentage <= 0) return 0;
+    if (this.percentage >= 100) return 5;
+    return Math.min(4, Math.max(1, Math.floor(this.percentage / 20)));
   }
 }

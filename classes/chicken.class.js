@@ -1,3 +1,7 @@
+/**
+ * Regular walking enemy that can be defeated by jumping on it.
+ * @extends MovableObject
+ */
 class Chicken extends MovableObject {
   x = 450 + Math.random() * 500;
   y = 345;
@@ -15,6 +19,7 @@ class Chicken extends MovableObject {
     "assets/imgs/3_enemies_chicken/chicken_normal/2_dead/dead.png",
   ];
 
+  /** @param {number} [xMin] - minimum spawn x position */
   constructor(xMin = 450) {
     super();
     this.x = xMin + Math.random() * 500;
@@ -27,6 +32,7 @@ class Chicken extends MovableObject {
     this.animate();
   }
 
+  /** Walks back and forth, playing the dead image once defeated. */
   animate() {
     World.track(setInterval(() => {
       if (this.isDead) {
@@ -39,6 +45,7 @@ class Chicken extends MovableObject {
     }, 1000 / 20));
   }
 
+  /** Reverses direction when reaching the map edges. */
   checkMapBounds() {
     if (this.x <= 0) {
       this.otherDirection = true;
@@ -47,6 +54,7 @@ class Chicken extends MovableObject {
     }
   }
 
+  /** Marks the chicken as defeated (stomped from above). */
   hitFromAbove() {
     if (!this.isDead) {
       this.isDead = true;
