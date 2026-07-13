@@ -105,6 +105,7 @@ class World {
   canThrowBottle() {
     return (
       this.keyboard.E &&
+      !this.character.isDead() &&
       this.bottleThrowCooldown === 0 &&
       this.collectedBottles > 0
     );
@@ -285,7 +286,11 @@ class World {
 
   exchangeCoinsForBottle() {
     const cost = 5;
-    if (this.collectedCoins < cost || this.collectedBottles >= this.maxBottles)
+    if (
+      this.character.isDead() ||
+      this.collectedCoins < cost ||
+      this.collectedBottles >= this.maxBottles
+    )
       return;
     this.collectedCoins -= cost;
     this.collectedBottles++;
