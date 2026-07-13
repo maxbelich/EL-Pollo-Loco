@@ -121,6 +121,8 @@ class Character extends MovableObject {
   }
 
   handleMovementInput() {
+    if (this.isDead()) return;
+
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
       this.otherDirection = false;
