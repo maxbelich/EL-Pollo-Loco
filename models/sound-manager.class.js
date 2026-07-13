@@ -56,7 +56,11 @@ class SoundManager {
   }
 
   toggleMute() {
-    this.muted = !this.muted;
+    return this.setMuted(!this.muted);
+  }
+
+  setMuted(muted) {
+    this.muted = muted;
     Object.values(this.loops).forEach((audio) => (audio.muted = this.muted));
     localStorage.setItem("soundMuted", this.muted);
     return this.muted;

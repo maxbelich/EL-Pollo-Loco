@@ -114,6 +114,11 @@ canvas {
     gap: 16px;
     padding-bottom: 15px;
     z-index: 1;
+    pointer-events: none;
+}
+
+#endOverlay .game-btn {
+    pointer-events: auto;
 }
 
 .game-btn,
@@ -153,12 +158,78 @@ canvas {
     border-radius: 12px;
 }
 
-#volumeSlider {
+#settingsBtn {
     position: absolute;
-    top: 30px;
-    right: 136px;
-    width: 90px;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+#settingsBtn span {
+    transform: translateY(-2px);
+    display: inline-block;
+}
+
+#settingsOverlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+#settingsOverlay.visible {
+    display: flex;
+}
+
+#settingsBox {
+    position: relative;
+    background: linear-gradient(to bottom, #ffe066, #ffa500);
+    border: 3px solid #7a2e10;
+    border-radius: 16px;
+    box-shadow: 0 3px 0 #5c220c;
+    padding: 32px 40px;
+    max-width: 80%;
+    text-align: center;
+    color: #7a2e10;
+    font-family: "GameFont", sans-serif;
+}
+
+#settingsBox #settingsCloseBtn {
+    top: -20px;
+    right: -20px;
+}
+
+#settingsBox h2 {
+    margin: 0 0 20px;
+    text-shadow: 1px 1px 0 #ffd27a;
+}
+
+#volumeLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#volumeSlider {
     accent-color: #ffa500;
+    cursor: pointer;
+}
+
+#imprintLink {
+    display: block;
+    margin-top: 24px;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #7a2e10;
+    text-decoration: underline;
     cursor: pointer;
 }
 

@@ -16,6 +16,8 @@ function init() {
   document.getElementById("volumeSlider").addEventListener("input", handleVolumeChange);
   document.getElementById("howToBtn").addEventListener("click", openHowTo);
   document.getElementById("howToCloseBtn").addEventListener("click", closeHowTo);
+  document.getElementById("settingsBtn").addEventListener("click", openSettings);
+  document.getElementById("settingsCloseBtn").addEventListener("click", closeSettings);
   document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
   document.addEventListener("fullscreenchange", updateFullscreenIcon);
   initTouchControls();
@@ -29,7 +31,10 @@ function applyStoredSoundSettings() {
 }
 
 function handleVolumeChange(e) {
-  soundManager.setVolume(Number(e.target.value));
+  const value = Number(e.target.value);
+  soundManager.setVolume(value);
+  soundManager.setMuted(value === 0);
+  document.getElementById("soundBtn").textContent = soundManager.muted ? "🔇" : "🔊";
 }
 
 function startBackgroundMusic() {
@@ -65,6 +70,14 @@ function openHowTo() {
 
 function closeHowTo() {
   document.getElementById("howToOverlay").classList.remove("visible");
+}
+
+function openSettings() {
+  document.getElementById("settingsOverlay").classList.add("visible");
+}
+
+function closeSettings() {
+  document.getElementById("settingsOverlay").classList.remove("visible");
 }
 
 function bindTouchButton(id, key) {
