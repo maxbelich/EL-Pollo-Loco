@@ -1,3 +1,7 @@
+/**
+ * Bottle thrown by the character; flies, splashes on hit, then disappears.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
   IMAGES_BOTTLE = [
     "assets/imgs/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
@@ -20,6 +24,11 @@ class ThrowableObject extends MovableObject {
   moveInterval;
   animationInterval;
 
+  /**
+   * @param {number} x - starting horizontal position
+   * @param {number} y - starting vertical position
+   * @param {boolean} [otherDirection] - true to throw to the left
+   */
   constructor(x, y, otherDirection = false) {
     super();
     this.loadImage(this.IMAGES_BOTTLE[0]);
@@ -34,6 +43,7 @@ class ThrowableObject extends MovableObject {
     this.animateBottle();
   }
 
+  /** Starts the fall (gravity) and horizontal flight of the bottle. */
   throw() {
     this.speedY = 30;
     this.applyGravity();
@@ -45,6 +55,7 @@ class ThrowableObject extends MovableObject {
     }, 25));
   }
 
+  /** Runs the rotation animation while flying, or the splash once hit. */
   animateBottle() {
     this.animationInterval = World.track(setInterval(() => {
       if (this.isSplash) {
@@ -55,6 +66,7 @@ class ThrowableObject extends MovableObject {
     }, 100));
   }
 
+  /** Advances the splash animation and stops all intervals once it finishes. */
   advanceSplashAnimation() {
     this.splashTimer++;
     this.playAnimation(this.IMAGES_SPLASH);
@@ -65,6 +77,7 @@ class ThrowableObject extends MovableObject {
     }
   }
 
+  /** Stops the flight and switches the bottle into its splash state. */
   hitBoss() {
     if (!this.isSplash) {
       this.isSplash = true;
@@ -78,6 +91,7 @@ class ThrowableObject extends MovableObject {
     }
   }
 
+  /** Plays the rotation animation while the bottle hasn't splashed yet. */
   animateSplash() {
     if (!this.isSplash) {
       this.playAnimation(this.IMAGES_BOTTLE);

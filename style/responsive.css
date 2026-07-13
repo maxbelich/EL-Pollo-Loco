@@ -1,6 +1,6 @@
 @media (max-width: 767px), (max-height: 500px) {
     h1 {
-        font-size: 18px;
+        font-size: 20px;
         margin: 8px 0;
     }
 
@@ -31,5 +31,9 @@
 @media (hover: none) and (pointer: coarse) {
     body.playing #touchControls {
         display: flex;
+    }
+
+    body.playing #btnExchange.visible {
+        display: block;
     }
 }

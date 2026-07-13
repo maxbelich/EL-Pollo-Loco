@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram name="Klassendiagramm" id="el-pollo-loco-classes">
-        <mxGraphModel dx="4065" dy="1948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2300" pageHeight="1900" math="0" shadow="0">
+        <mxGraphModel dx="299" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2300" pageHeight="1900" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="drawable" value="&lt;b&gt;DrawableObjet&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;currentImage&lt;hr&gt;+ loadImage(path)&lt;br&gt;+ draw(ctx)&lt;br&gt;+ loadImages(arr)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;" parent="1" vertex="1">
+                <mxCell id="drawable" value="&lt;b&gt;DrawableObject&lt;/b&gt;&lt;hr&gt;x&lt;br&gt;y&lt;br&gt;width&lt;br&gt;height&lt;br&gt;currentImage&lt;hr&gt;+ loadImage(path)&lt;br&gt;+ draw(ctx)&lt;br&gt;+ loadImages(arr)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="810" y="40" width="220" height="220" as="geometry"/>
                 </mxCell>
                 <mxCell id="movable" value="&lt;b&gt;MovableObject&lt;/b&gt;&lt;hr&gt;speed&lt;br&gt;speedY&lt;br&gt;acceleration&lt;br&gt;otherDirection&lt;br&gt;life&lt;hr&gt;+ applyGravity()&lt;br&gt;+ isAboveGround()&lt;br&gt;+ moveRight()&lt;br&gt;+ moveLeft()&lt;br&gt;+ jump()&lt;br&gt;+ playAnimation(images)&lt;br&gt;+ isColliding(mo)&lt;br&gt;+ hit(damage)&lt;br&gt;+ isDead()&lt;br&gt;+ isHurt()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;shadow=1;" parent="1" vertex="1">
@@ -40,14 +40,20 @@
                 <mxCell id="level" value="&lt;b&gt;Level&lt;/b&gt;&lt;hr&gt;level_end_x" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="880" y="1280" width="150" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="keyboard" value="&lt;b&gt;Keyboard&lt;/b&gt;&lt;hr&gt;LEFT&lt;br&gt;RIGHT&lt;br&gt;UP&lt;br&gt;DOWN&lt;br&gt;SPACE&lt;br&gt;E" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
+                <mxCell id="keyboard" value="&lt;b&gt;Keyboard&lt;/b&gt;&lt;hr&gt;LEFT&lt;br&gt;RIGHT&lt;br&gt;UP&lt;br&gt;SPACE&lt;br&gt;E" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="1510" y="1540" width="150" height="200" as="geometry"/>
                 </mxCell>
-                <mxCell id="soundmanager" value="&lt;b&gt;SoundManager&lt;/b&gt;&lt;hr&gt;muted&lt;hr&gt;+ play(name)&lt;br&gt;+ startLoop(name)&lt;br&gt;+ stopLoop(name)&lt;br&gt;+ toggleMute()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
-                    <mxGeometry x="1700" y="1560" width="190" height="180" as="geometry"/>
+                <mxCell id="soundmanager" value="&lt;b&gt;SoundManager&lt;/b&gt;&lt;hr&gt;muted&lt;hr&gt;+ play(name)&lt;br&gt;+ startLoop(name)&lt;br&gt;+ stopLoop(name)&lt;br&gt;+ toggleMute()&lt;br&gt;+ setMuted(muted)&lt;br&gt;+ setVolume(value)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1700" y="1560" width="190" height="210" as="geometry"/>
                 </mxCell>
-                <mxCell id="world" value="&lt;b&gt;World&lt;/b&gt;&lt;hr&gt;camera_x&lt;br&gt;collectedBottles&lt;br&gt;maxBottles&lt;br&gt;collectedCoins&lt;br&gt;gameOver&lt;br&gt;gameWon&lt;hr&gt;+ setWorld()&lt;br&gt;+ run()&lt;br&gt;+ destroy()&lt;br&gt;+ showEndOverlay()&lt;br&gt;+ checkThrowObjects()&lt;br&gt;+ checkCollisions()&lt;br&gt;+ isStompingOn(enemy)&lt;br&gt;+ updateBottleStatusbar()&lt;br&gt;+ updateCoinStatusbar()&lt;br&gt;+ draw()&lt;br&gt;+ addObjectsToMap(objects)&lt;br&gt;+ addToMap(mo)&lt;br&gt;+ flipImage(mo)&lt;br&gt;+ flipImageBack(mo)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
+                <mxCell id="world" value="&lt;b&gt;World&lt;/b&gt;&lt;hr&gt;camera_x&lt;br&gt;collectedBottles&lt;br&gt;maxBottles&lt;br&gt;collectedCoins&lt;br&gt;gameOver&lt;br&gt;gameWon&lt;hr&gt;+ setWorld()&lt;br&gt;+ run()&lt;br&gt;+ destroy()&lt;br&gt;+ showEndOverlay()&lt;br&gt;+ checkThrowObjects()&lt;br&gt;+ updateBottleStatusbar()&lt;br&gt;+ updateCoinStatusbar()&lt;br&gt;+ draw()&lt;br&gt;+ addObjectsToMap(objects)&lt;br&gt;+ addToMap(mo)&lt;br&gt;+ flipImage(mo)&lt;br&gt;+ flipImageBack(mo)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="1940" y="1280" width="230" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="collisionmanager" value="&lt;b&gt;CollisionManager&lt;/b&gt;&lt;hr&gt;world&lt;hr&gt;+ checkCollisions()&lt;br&gt;+ isStompingOn(enemy)&lt;br&gt;+ exchangeCoinsForBottle()" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1940" y="900" width="230" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c13" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="world" target="collisionmanager" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;endSize=14;exitX=0.5;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="movable" target="drawable" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -135,48 +141,61 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="c8" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.2;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="chicken" edge="1">
+                <mxCell id="c8" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;entryX=0.5;entryY=1;shadow=1;" parent="1" target="chicken" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="950" y="1280"/>
                             <mxPoint x="950" y="1205"/>
                             <mxPoint x="335" y="1205"/>
                         </Array>
+                        <mxPoint x="950" y="1280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="c9" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.4;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="chickensmall" edge="1">
+                <mxCell id="c9" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;entryX=0.5;entryY=1;shadow=1;" parent="1" target="chickensmall" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="950" y="1280"/>
                             <mxPoint x="950" y="1220"/>
                             <mxPoint x="555" y="1220"/>
                         </Array>
+                        <mxPoint x="950" y="1280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="c10" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.6;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="endboss" edge="1">
+                <mxCell id="c10" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;entryX=0.5;entryY=1;shadow=1;" parent="1" target="endboss" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="950" y="1280"/>
                             <mxPoint x="950" y="1235"/>
                             <mxPoint x="795" y="1235"/>
                         </Array>
+                        <mxPoint x="950" y="1280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="c11" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.8;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="cloud" edge="1">
+                <mxCell id="c11" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;entryX=0.5;entryY=1;shadow=1;" parent="1" target="cloud" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="950" y="1280"/>
                             <mxPoint x="950" y="1250"/>
                             <mxPoint x="1495" y="1250"/>
                         </Array>
+                        <mxPoint x="950" y="1280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="c12" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=0.95;exitY=0;entryX=0.5;entryY=1;shadow=1;" parent="1" source="level" target="background" edge="1">
+                <mxCell id="c12" value="0..n" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;entryX=0.5;entryY=1;shadow=1;" parent="1" target="background" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="950" y="1280"/>
                             <mxPoint x="950" y="1265"/>
                             <mxPoint x="1705" y="1265"/>
+                        </Array>
+                        <mxPoint x="950" y="1280" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" style="edgeStyle=none;html=1;entryX=0.457;entryY=-0.001;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="level">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="949" y="1280" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="950" y="1280"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>

@@ -1,4 +1,8 @@
-class MovableObject extends DrawableObjet {
+/**
+ * Object with physics: gravity, movement, collision, and health.
+ * @extends DrawableObject
+ */
+class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
@@ -13,6 +17,7 @@ class MovableObject extends DrawableObjet {
   lastHit = 0;
   hurtDuration = 0.25;
 
+  /** Applies gravity until the object reaches the ground. */
   applyGravity() {
     World.track(setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -26,6 +31,10 @@ class MovableObject extends DrawableObjet {
     }, 1000 / 45));
   }
 
+  /**
+   * Checks if the object is above the ground level.
+   * @returns {boolean}
+   */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -34,19 +43,26 @@ class MovableObject extends DrawableObjet {
     }
   }
 
+  /** Moves the object to the right. */
   moveRight() {
     this.x += this.speed;
   }
 
+  /** Moves the object to the left. */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /** Starts a jump by setting the vertical speed. */
   jump() {
     this.speedY = 30;
     this.isJumping = true;
   }
 
+  /**
+   * Sets the current image to the next frame in the given animation.
+   * @param {string[]} images - list of image paths for the animation
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -54,6 +70,11 @@ class MovableObject extends DrawableObjet {
     this.currentImage++;
   }
 
+  /**
+   * Checks collision with another movable object using bounding boxes and offsets.
+   * @param {MovableObject} mo - the other object
+   * @returns {boolean}
+   */
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left && // R -> L
@@ -63,16 +84,28 @@ class MovableObject extends DrawableObjet {
     );
   }
 
+  /**
+   * Reduces life by the given damage and records the hit time.
+   * @param {number} [damage] - amount of damage to take
+   */
   hit(damage = 5) {
     this.life -= damage;
     if (this.life < 0) this.life = 0;
     this.lastHit = new Date().getTime();
   }
 
+  /**
+   * Checks if the object has run out of life.
+   * @returns {boolean}
+   */
   isDead() {
     return this.life == 0;
   }
 
+  /**
+   * Checks if the object was hit recently and is still in the hurt state.
+   * @returns {boolean}
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;

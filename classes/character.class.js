@@ -1,3 +1,7 @@
+/**
+ * The playable character (Pepe): movement, jumping, and idle/hurt/dead states.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
   width = 150;
   height = 310;
@@ -77,6 +81,7 @@ class Character extends MovableObject {
   isSnoring = false;
   world;
 
+  /** Preloads all animation frames and starts gravity and animation loops. */
   constructor() {
     super();
     this.loadImage("assets/imgs/2_character_pepe/2_walk/W-21.png");
@@ -90,11 +95,13 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /** Starts both the movement and idle animation loops. */
   animate() {
     this.animateMovement();
     this.animateIdle();
   }
 
+  /** Runs the main loop: updates sprite, reads input, and moves the camera. */
   animateMovement() {
     World.track(
       setInterval(() => {
@@ -105,6 +112,7 @@ class Character extends MovableObject {
     );
   }
 
+  /** Picks the correct animation frame based on the character's current state. */
   updateSprite() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -120,12 +128,14 @@ class Character extends MovableObject {
     }
   }
 
+  /** Reads keyboard input and applies horizontal movement and jumping. */
   handleMovementInput() {
     if (this.isDead()) return;
     this.handleHorizontalMovement();
     this.handleJumpInput();
   }
 
+  /** Moves left or right based on keyboard state, within level bounds. */
   handleHorizontalMovement() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
@@ -140,6 +150,7 @@ class Character extends MovableObject {
     }
   }
 
+  /** Triggers a jump when the jump keys are pressed and not already jumping. */
   handleJumpInput() {
     if (
       (this.world.keyboard.SPACE && !this.isJumping) ||
@@ -151,10 +162,12 @@ class Character extends MovableObject {
     }
   }
 
+  /** Starts the loop that checks and updates the idle state. */
   animateIdle() {
     World.track(setInterval(() => this.tickIdleState(), 175));
   }
 
+  /** Advances idle/long-idle/snoring animation for the current frame. */
   tickIdleState() {
     const eligible = this.isIdleEligible();
     if (eligible && this.isLongIdleDue()) {
@@ -165,6 +178,10 @@ class Character extends MovableObject {
     if (eligible) this.playAnimation(this.IMAGES_IDLE);
   }
 
+  /**
+   * Checks if the character is idle (not dead, hurt, jumping, or moving).
+   * @returns {boolean}
+   */
   isIdleEligible() {
     return (
       !this.isDead() &&
@@ -175,16 +192,22 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Checks if the character has been idle long enough to start snoring.
+   * @returns {boolean}
+   */
   isLongIdleDue() {
     return (new Date().getTime() - this.lastMoveTime) / 1000 > 5;
   }
 
+  /** Plays the long-idle animation and starts the snoring sound loop. */
   startLongIdle() {
     this.playAnimation(this.IMAGES_LONG_IDLE);
     this.isSnoring = true;
     this.world.soundManager.startLoop("snoring");
   }
 
+  /** Stops the snoring sound loop if it is currently playing. */
   stopSnoringIfActive() {
     if (this.isSnoring) {
       this.isSnoring = false;

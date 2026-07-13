@@ -1,3 +1,7 @@
+/**
+ * Small, faster variant of the walking enemy.
+ * @extends MovableObject
+ */
 class ChickenSmall extends MovableObject {
   x = 450 + Math.random() * 700;
   y = 385;
@@ -21,6 +25,7 @@ class ChickenSmall extends MovableObject {
     "assets/imgs/3_enemies_chicken/chicken_small/2_dead/dead.png",
   ];
 
+  /** @param {number} [xMin] - minimum spawn x position */
   constructor(xMin = 450) {
     super();
     this.x = xMin + Math.random() * 500;
@@ -31,6 +36,7 @@ class ChickenSmall extends MovableObject {
     this.animate();
   }
 
+  /** Walks back and forth, playing the dead image once defeated. */
   animate() {
     World.track(setInterval(() => {
       if (this.isDead) {
@@ -43,6 +49,7 @@ class ChickenSmall extends MovableObject {
     }, 1000 / 20));
   }
 
+  /** Reverses direction when reaching the map edges. */
   checkMapBounds() {
     if (this.x <= 0) {
       this.otherDirection = true;
@@ -51,6 +58,7 @@ class ChickenSmall extends MovableObject {
     }
   }
 
+  /** Marks the chicken as defeated (stomped from above). */
   hitFromAbove() {
     if (!this.isDead) {
       this.isDead = true;
