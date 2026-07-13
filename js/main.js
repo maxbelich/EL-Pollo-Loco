@@ -39,13 +39,13 @@ function handleVolumeChange(e) {
 
 function startBackgroundMusic() {
   soundManager.startLoop("musicTheme")?.catch(() => {
-    const resume = () => {
+    const retry = () => {
       soundManager.loops.musicTheme?.play();
-      document.removeEventListener("pointerdown", resume);
-      document.removeEventListener("keydown", resume);
+      document.removeEventListener("pointerdown", retry);
+      document.removeEventListener("keydown", retry);
     };
-    document.addEventListener("pointerdown", resume);
-    document.addEventListener("keydown", resume);
+    document.addEventListener("pointerdown", retry);
+    document.addEventListener("keydown", retry);
   });
 }
 
@@ -116,6 +116,7 @@ function startGame() {
   if (world) world.destroy();
   document.getElementById("startOverlay").style.display = "none";
   document.getElementById("howToBtn").style.display = "none";
+  document.getElementById("settingsBtn").style.display = "none";
   document.getElementById("endOverlay").style.display = "none";
   document.getElementById("touchControls").classList.remove("dimmed");
   document.body.classList.add("playing");
@@ -131,6 +132,7 @@ function goToHome() {
   document.getElementById("endOverlay").style.display = "none";
   document.getElementById("startOverlay").style.display = "";
   document.getElementById("howToBtn").style.display = "";
+  document.getElementById("settingsBtn").style.display = "";
   document.body.classList.remove("playing");
   showStartScreen();
 }

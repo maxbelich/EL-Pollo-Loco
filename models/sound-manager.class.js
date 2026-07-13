@@ -22,6 +22,8 @@ class SoundManager {
     collectBottle: "assets/audio/collectibles/bottleCollectSound.wav",
     endbossApproach: "assets/audio/endboss/endbossApproach.wav",
     gameStart: "assets/audio/game/gameStart.mp3",
+    win: "assets/audio/game/tunetank.com_win-1.wav",
+    lose: "assets/audio/game/tunetank.com_lose.wav",
     bottleBreak: "assets/audio/throwable/bottleBreak.mp3",
     musicTheme: "assets/audio/game/Slinger Swagger (loop).ogg",
   };
