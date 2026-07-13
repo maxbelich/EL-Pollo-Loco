@@ -16,8 +16,14 @@ function init() {
   document.getElementById("volumeSlider").addEventListener("input", handleVolumeChange);
   document.getElementById("howToBtn").addEventListener("click", openHowTo);
   document.getElementById("howToCloseBtn").addEventListener("click", closeHowTo);
+  document.getElementById("howToOverlay").addEventListener("click", (event) => {
+    if (event.target.id === "howToOverlay") closeHowTo();
+  });
   document.getElementById("settingsBtn").addEventListener("click", openSettings);
   document.getElementById("settingsCloseBtn").addEventListener("click", closeSettings);
+  document.getElementById("settingsOverlay").addEventListener("click", (event) => {
+    if (event.target.id === "settingsOverlay") closeSettings();
+  });
   document.getElementById("fullscreenBtn").addEventListener("click", toggleFullscreen);
   document.addEventListener("fullscreenchange", updateFullscreenIcon);
   initTouchControls();
@@ -30,8 +36,8 @@ function applyStoredSoundSettings() {
   document.getElementById("volumeSlider").value = soundManager.volume;
 }
 
-function handleVolumeChange(e) {
-  const value = Number(e.target.value);
+function handleVolumeChange(event) {
+  const value = Number(event.target.value);
   soundManager.setVolume(value);
   soundManager.setMuted(value === 0);
   document.getElementById("soundBtn").textContent = soundManager.muted ? "🔇" : "🔊";
@@ -82,10 +88,10 @@ function closeSettings() {
 
 function bindTouchButton(id, key) {
   const btn = document.getElementById(id);
-  btn.addEventListener("touchstart", (e) => { e.preventDefault(); keyboard[key] = true; });
-  btn.addEventListener("touchend", (e) => { e.preventDefault(); keyboard[key] = false; });
-  btn.addEventListener("touchcancel", (e) => { e.preventDefault(); keyboard[key] = false; });
-  btn.addEventListener("contextmenu", (e) => e.preventDefault());
+  btn.addEventListener("touchstart", (event) => { event.preventDefault(); keyboard[key] = true; });
+  btn.addEventListener("touchend", (event) => { event.preventDefault(); keyboard[key] = false; });
+  btn.addEventListener("touchcancel", (event) => { event.preventDefault(); keyboard[key] = false; });
+  btn.addEventListener("contextmenu", (event) => event.preventDefault());
 }
 
 function initTouchControls() {
@@ -152,14 +158,14 @@ function setKeyState(keyCode, value) {
   }
 }
 
-function handleKeyDown(e) {
+function handleKeyDown(event) {
   if (world && (world.gameOver || world.gameWon)) return;
-  if (e.code === "KeyQ" && world && !e.repeat) world.exchangeCoinsForBottle();
-  setKeyState(e.keyCode, true);
+  if (event.code === "KeyQ" && world && !event.repeat) world.exchangeCoinsForBottle();
+  setKeyState(event.keyCode, true);
 }
 
-function handleKeyUp(e) {
-  setKeyState(e.keyCode, false);
+function handleKeyUp(event) {
+  setKeyState(event.keyCode, false);
 }
 
 window.addEventListener("keydown", handleKeyDown);
