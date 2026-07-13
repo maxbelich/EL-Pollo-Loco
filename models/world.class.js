@@ -130,13 +130,21 @@ class World {
   }
 
   checkEnemyCollisions() {
+    const stomped = this.processChickenStomps();
+    this.processEnemyDamage(stomped);
+  }
+
+  processChickenStomps() {
     let stomped = false;
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
         if (this.checkChickenStomp(enemy)) stomped = true;
       }
     });
+    return stomped;
+  }
 
+  processEnemyDamage(stomped) {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
         if (!stomped) this.checkChickenDamage(enemy);
@@ -192,22 +200,25 @@ class World {
 
   checkBottleCollisions() {
     this.throwableObjects.forEach((bottle) => {
-      if (this.isBottleHittingBoss(bottle)) {
-        bottle.hitBoss();
-        this.boss.hit();
-        this.endbossStatusbar.setPercentage(this.boss.life);
-        this.soundManager.play("bottleBreak");
-        this.soundManager.play(this.boss.isDead() ? "endbossDead" : "endbossHit");
-        if (
-          this.boss.life < 50 &&
-          this.boss.bottleDropsGiven < 2 &&
-          !this.boss.isDead()
-        ) {
-          this.dropBossBottle();
-          this.boss.bottleDropsGiven++;
-        }
-      }
+      if (this.isBottleHittingBoss(bottle)) this.applyBossHit(bottle);
     });
+  }
+
+  applyBossHit(bottle) {
+    bottle.hitBoss();
+    this.boss.hit();
+    this.endbossStatusbar.setPercentage(this.boss.life);
+    this.soundManager.play("bottleBreak");
+    this.soundManager.play(this.boss.isDead() ? "endbossDead" : "endbossHit");
+    this.maybeDropBossBottle();
+  }
+
+  maybeDropBossBottle() {
+    if (this.boss.life >= 50 || this.boss.bottleDropsGiven >= 2 || this.boss.isDead()) {
+      return;
+    }
+    this.dropBossBottle();
+    this.boss.bottleDropsGiven++;
   }
 
   dropBossBottle() {
@@ -231,16 +242,13 @@ class World {
     const arcHeight = 120;
     const steps = 20;
     let step = 0;
-    const flightInterval = World.track(
-      setInterval(() => {
-        step++;
-        const t = step / steps;
-        bottle.x = startX + (targetX - startX) * t;
-        bottle.y = bottle.baseY =
-          startY + (targetY - startY) * t - arcHeight * Math.sin(Math.PI * t);
-        if (step >= steps) clearInterval(flightInterval);
-      }, 25),
-    );
+    const flightInterval = World.track(setInterval(() => {
+      step++;
+      const t = step / steps;
+      bottle.x = startX + (targetX - startX) * t;
+      bottle.y = bottle.baseY = startY + (targetY - startY) * t - arcHeight * Math.sin(Math.PI * t);
+      if (step >= steps) clearInterval(flightInterval);
+    }, 25));
   }
 
   isBottleHittingBoss(bottle) {
@@ -256,19 +264,25 @@ class World {
   }
 
   checkGameEndConditions() {
-    if (!this.gameEnding && this.character.isDead()) {
-      this.gameEnding = true;
-      this.soundManager.play("characterDead");
-      setTimeout(() => {
-        this.gameOver = true;
-      }, 1500);
-    }
-    if (!this.gameEnding && this.boss && this.boss.isDead()) {
-      this.gameEnding = true;
-      setTimeout(() => {
-        this.gameWon = true;
-      }, 1500);
-    }
+    this.checkCharacterDeathEnd();
+    this.checkBossDeathEnd();
+  }
+
+  checkCharacterDeathEnd() {
+    if (this.gameEnding || !this.character.isDead()) return;
+    this.gameEnding = true;
+    this.soundManager.play("characterDead");
+    setTimeout(() => {
+      this.gameOver = true;
+    }, 1500);
+  }
+
+  checkBossDeathEnd() {
+    if (this.gameEnding || !this.boss || !this.boss.isDead()) return;
+    this.gameEnding = true;
+    setTimeout(() => {
+      this.gameWon = true;
+    }, 1500);
   }
 
   checkCollectableCollisions() {
@@ -367,13 +381,22 @@ class World {
 
   drawCoinExchangeHint() {
     if (this.collectedCoins < 5) return;
-    const text = "Q ➜ 🍾";
-    const x = this.coinStatusbar.x + this.coinStatusbar.width + 10;
-    const y = this.coinStatusbar.y + this.coinStatusbar.height / 2 + 10;
+    const { text, x, y } = this.getCoinHintLayout();
+    this.drawCoinHintBadge(text, x, y);
+    this.drawCoinHintText(text, x, y);
+  }
 
+  getCoinHintLayout() {
+    return {
+      text: "Q ➜ 🍾",
+      x: this.coinStatusbar.x + this.coinStatusbar.width + 10,
+      y: this.coinStatusbar.y + this.coinStatusbar.height / 2 + 10,
+    };
+  }
+
+  drawCoinHintBadge(text, x, y) {
     this.ctx.font = "bold 20px sans-serif";
     this.ctx.textBaseline = "middle";
-
     const padding = 10;
     const boxWidth = this.ctx.measureText(text).width + padding * 2;
     const boxHeight = 32;
@@ -381,7 +404,9 @@ class World {
     this.ctx.beginPath();
     this.ctx.roundRect(x - padding, y - boxHeight / 2, boxWidth, boxHeight, 8);
     this.ctx.fill();
+  }
 
+  drawCoinHintText(text, x, y) {
     this.ctx.lineWidth = 3;
     this.ctx.strokeStyle = "#000";
     this.ctx.strokeText(text, x, y);
@@ -394,24 +419,11 @@ class World {
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
-
     if (this.gameOver) {
-      this.ctx.drawImage(
-        this.imageGameOver,
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height,
-      );
+      this.ctx.drawImage(this.imageGameOver, 0, 0, this.canvas.width, this.canvas.height);
       this.showEndOverlay();
     } else if (this.gameWon) {
-      this.ctx.drawImage(
-        this.imageWon,
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height,
-      );
+      this.ctx.drawImage(this.imageWon, 0, 0, this.canvas.width, this.canvas.height);
       this.showEndOverlay();
     }
   }
