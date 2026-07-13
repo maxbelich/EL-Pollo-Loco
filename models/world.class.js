@@ -56,13 +56,17 @@ class World {
   }
 
   run() {
-    World.track(setInterval(() => {
-      this.checkCollisions();
-    }, 16));
+    World.track(
+      setInterval(() => {
+        this.checkCollisions();
+      }, 16),
+    );
 
-    World.track(setInterval(() => {
-      this.checkThrowObjects();
-    }, 50));
+    World.track(
+      setInterval(() => {
+        this.checkThrowObjects();
+      }, 50),
+    );
   }
 
   destroy() {
@@ -174,8 +178,49 @@ class World {
         this.boss.hit();
         this.endbossStatusbar.setPercentage(this.boss.life);
         this.soundManager.play("bottleBreak");
+        if (
+          this.boss.life < 50 &&
+          this.boss.bottleDropsGiven < 2 &&
+          !this.boss.isDead()
+        ) {
+          this.dropBossBottle();
+          this.boss.bottleDropsGiven++;
+        }
       }
     });
+  }
+
+  dropBossBottle() {
+    const startX = this.boss.x + this.boss.width / 2 - 30;
+    const startY = this.boss.y + this.boss.height - 70;
+    const bottle = new CollectibleObject(
+      "assets/imgs/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+      startX,
+      startY,
+      60,
+      70,
+      "bottle",
+    );
+    this.collectibleObjects.push(bottle);
+    this.flyBottleToCharacter(bottle, startX, startY);
+  }
+
+  flyBottleToCharacter(bottle, startX, startY) {
+    const targetX = this.character.x;
+    const targetY = 360;
+    const arcHeight = 120;
+    const steps = 20;
+    let step = 0;
+    const flightInterval = World.track(
+      setInterval(() => {
+        step++;
+        const t = step / steps;
+        bottle.x = startX + (targetX - startX) * t;
+        bottle.y = bottle.baseY =
+          startY + (targetY - startY) * t - arcHeight * Math.sin(Math.PI * t);
+        if (step >= steps) clearInterval(flightInterval);
+      }, 25),
+    );
   }
 
   isBottleHittingBoss(bottle) {
@@ -232,6 +277,17 @@ class World {
     this.soundManager.play("collectCoin");
   }
 
+  exchangeCoinsForBottle() {
+    const cost = 5;
+    if (this.collectedCoins < cost || this.collectedBottles >= this.maxBottles)
+      return;
+    this.collectedCoins -= cost;
+    this.collectedBottles++;
+    this.updateCoinStatusbar();
+    this.updateBottleStatusbar();
+    this.soundManager.play("collectBottle");
+  }
+
   isStompingOn(enemy) {
     return (
       this.character.speedY < 0 &&
@@ -282,6 +338,31 @@ class World {
     this.addToMap(this.coinStatusbar);
     this.addToMap(this.bottleStatusbar);
     if (this.boss && this.boss.isAlerted) this.addToMap(this.endbossStatusbar);
+    this.drawCoinExchangeHint();
+  }
+
+  drawCoinExchangeHint() {
+    if (this.collectedCoins < 5) return;
+    const text = "Q ➜ 🍾";
+    const x = this.coinStatusbar.x + this.coinStatusbar.width + 10;
+    const y = this.coinStatusbar.y + this.coinStatusbar.height / 2 + 10;
+
+    this.ctx.font = "bold 20px sans-serif";
+    this.ctx.textBaseline = "middle";
+
+    const padding = 10;
+    const boxWidth = this.ctx.measureText(text).width + padding * 2;
+    const boxHeight = 32;
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+    this.ctx.beginPath();
+    this.ctx.roundRect(x - padding, y - boxHeight / 2, boxWidth, boxHeight, 8);
+    this.ctx.fill();
+
+    this.ctx.lineWidth = 3;
+    this.ctx.strokeStyle = "#000";
+    this.ctx.strokeText(text, x, y);
+    this.ctx.fillStyle = "#ffe066";
+    this.ctx.fillText(text, x, y);
   }
 
   drawEndScreen() {
