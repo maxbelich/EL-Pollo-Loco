@@ -130,27 +130,39 @@ class World {
   }
 
   checkEnemyCollisions() {
+    let stomped = false;
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
-        this.checkChickenCollision(enemy);
+        if (this.checkChickenStomp(enemy)) stomped = true;
+      }
+    });
+
+    this.level.enemies.forEach((enemy) => {
+      if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
+        if (!stomped) this.checkChickenDamage(enemy);
       } else if (enemy instanceof Endboss) {
         this.checkEndbossCollision(enemy);
       }
     });
   }
 
-  checkChickenCollision(enemy) {
-    if (enemy.isDead) return;
-
-    if (this.isStompingOn(enemy) && this.character.isColliding(enemy)) {
-      enemy.hitFromAbove();
-      this.character.speedY = 20;
-      this.character.isJumping = true;
-      this.soundManager.play(
-        enemy instanceof ChickenSmall ? "chickenSmallDead" : "chickenDead",
-      );
-      return;
+  checkChickenStomp(enemy) {
+    if (enemy.isDead) return false;
+    if (!this.isStompingOn(enemy) || !this.character.isColliding(enemy)) {
+      return false;
     }
+
+    enemy.hitFromAbove();
+    this.character.speedY = 20;
+    this.character.isJumping = true;
+    this.soundManager.play(
+      enemy instanceof ChickenSmall ? "chickenSmallDead" : "chickenDead",
+    );
+    return true;
+  }
+
+  checkChickenDamage(enemy) {
+    if (enemy.isDead) return;
 
     if (
       this.character.isColliding(enemy) &&
