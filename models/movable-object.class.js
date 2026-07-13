@@ -11,6 +11,7 @@ class MovableObject extends DrawableObjet {
   };
   life = 100;
   lastHit = 0;
+  hurtDuration = 0.25;
 
   applyGravity() {
     World.track(setInterval(() => {
@@ -75,6 +76,6 @@ class MovableObject extends DrawableObjet {
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
-    return timepassed < 0.25;
+    return timepassed < this.hurtDuration;
   }
 }

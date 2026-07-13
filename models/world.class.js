@@ -185,6 +185,7 @@ class World {
         this.boss.hit();
         this.endbossStatusbar.setPercentage(this.boss.life);
         this.soundManager.play("bottleBreak");
+        this.soundManager.play(this.boss.isDead() ? "endbossDead" : "endbossHit");
         if (
           this.boss.life < 50 &&
           this.boss.bottleDropsGiven < 2 &&
