@@ -26,6 +26,14 @@
     #canvasWrapper {
         width: min(100%, 720px, calc((100vh - 60px) * 3 / 2));
     }
+
+    #pageFooter {
+        display: none;
+    }
+
+    #imprintLinkCanvas {
+        display: block;
+    }
 }
 
 @media (hover: none) and (pointer: coarse) {

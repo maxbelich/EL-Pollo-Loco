@@ -50,6 +50,10 @@ body {
     filter: brightness(1.4);
 }
 
+#impressumBox a:active {
+    filter: brightness(0.8);
+}
+
 #backBtn {
     display: inline-block;
     margin-top: 24px;

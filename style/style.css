@@ -225,21 +225,57 @@ canvas {
     cursor: pointer;
 }
 
+#imprintLink,
+#imprintLinkCanvas {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#imprintLink:hover,
+#imprintLinkCanvas:hover {
+    filter: brightness(1.4);
+}
+
+#imprintLink:active,
+#imprintLinkCanvas:active {
+    filter: brightness(0.8);
+}
+
 #imprintLink {
-    display: block;
-    margin-top: 24px;
     font-size: 16px;
     font-family: sans-serif;
     font-weight: bold;
     color: #7a2e10;
-    text-decoration: underline;
-    cursor: pointer;
+}
+
+#pageFooter {
+    margin-top: 12px;
+    padding: 8px;
+    text-align: center;
+}
+
+#imprintLinkCanvas {
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.game-btn:hover,
+.icon-btn:hover {
+    filter: brightness(1.4);
 }
 
 .game-btn:active,
 .icon-btn:active {
     box-shadow: 0 1px 0 #5c220c;
     transform: translateY(2px);
+    filter: brightness(0.8);
 }
 
 #touchControls {
