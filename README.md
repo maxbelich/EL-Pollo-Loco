@@ -5,7 +5,7 @@
 ![HTML5 Canvas](https://img.shields.io/badge/HTML5-Canvas-E34F26?logo=html5&logoColor=white)
 ![Build Tools](https://img.shields.io/badge/build%20tools-none-blue)
 
-A browser-based 2D side-scrolling platformer built from scratch with **vanilla JavaScript** and the **HTML5 Canvas API** — no frameworks, no game engine, no build tools. Created as a portfolio project during my Fullstack Web Development training at the [Developer Akademie](https://developerakademie.com/).
+A browser-based 2D side-scrolling platformer built from scratch with **vanilla JavaScript** and the **HTML5 Canvas API** - no frameworks, no game engine, no build tools. Created as a portfolio project during my Fullstack Web Development training at the [Developer Akademie](https://developerakademie.com/).
 
 **[▶ Play it live](https://maxbelich.developerakademie.net/EL_Pollo_Loco/index.html)**
 
@@ -13,7 +13,7 @@ A browser-based 2D side-scrolling platformer built from scratch with **vanilla J
 
 ## About
 
-Help Pepe cross the desert, defeat the chickens standing in his way, and take down the Endboss — a giant chicken — by throwing salsa bottles at it. Collect coins to buy more bottles, keep an eye on your health, and don't get pecked to death before you reach the end of the level.
+Help Pepe cross the desert, defeat the chickens standing in his way, and take down the Endboss - a giant chicken - by throwing salsa bottles at it. Collect coins to buy more bottles, keep an eye on your health, and don't get pecked to death before you reach the end of the level.
 
 ## Features
 
@@ -41,10 +41,10 @@ On touch devices, on-screen controls appear automatically.
 
 ## Tech Stack
 
-- **Vanilla JavaScript (ES6 classes)** — no frameworks or libraries
+- **Vanilla JavaScript (ES6 classes)** - no frameworks or libraries
 - **HTML5 Canvas API** for rendering and the game loop
 - **CSS3** with media queries for responsive/mobile layout
-- No build step — plain static files, deployable as-is
+- No build step - plain static files, deployable as-is
 - Fully documented with **JSDoc** on every class and method
 
 ## Architecture
@@ -65,16 +65,16 @@ DrawableObject
 
 Alongside these sit a few standalone manager classes:
 
-- `World` — the central game loop, drawing, and overall game state
-- `Level` — holds a level's enemies, clouds, background and items
-- `CollisionManager` — all collision, damage and pickup logic
-- `SoundManager` — playback, looping music, mute/volume
-- `Keyboard` — tracks pressed/released control keys
-- `StatusBar` — renders the health/coin/bottle/endboss bars
+- `World` - the central game loop, drawing, and overall game state
+- `Level` - holds a level's enemies, clouds, background and items
+- `CollisionManager` - all collision, damage and pickup logic
+- `SoundManager` - playback, looping music, mute/volume
+- `Keyboard` - tracks pressed/released control keys
+- `StatusBar` - renders the health/coin/bottle/endboss bars
 
 The Developer Akademie's project checklist required every file to stay under ~400 lines and every function to stay short and single-purpose. Sticking to that meant, for example, pulling all collision, damage and pickup logic out of the growing `World` class into its own dedicated `CollisionManager` once `World` got too large.
 
-A visual class diagram is available at [`docs/class-diagram.drawio`](docs/class-diagram.drawio) (open with [draw.io](https://app.diagrams.net/)).
+A visual class diagram is available at [`docs/class-diagram.drawio`](docs/class-diagram.drawio) - [open it directly in draw.io](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fmaxbelich%2FEL-Pollo-Loco%2Fmain%2Fdocs%2Fclass-diagram.drawio).
 
 ### Project structure
 
@@ -91,7 +91,7 @@ docs/              Class diagram
 
 ## Getting Started
 
-No build step required — it's plain HTML/CSS/JS.
+No build step required - it's plain HTML/CSS/JS.
 
 ```bash
 git clone https://github.com/maxbelich/EL-Pollo-Loco.git
