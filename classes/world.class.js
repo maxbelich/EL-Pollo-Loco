@@ -176,14 +176,15 @@ class World {
 
   /** Draws all camera-scrolled objects (background, enemies, character, items). */
   drawWorldLayer() {
-    this.ctx.translate(this.camera_x, 0);
+    const camera_x = Math.round(this.camera_x);
+    this.ctx.translate(camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     if (!this.gameOver) this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.collectibleObjects);
-    this.ctx.translate(-this.camera_x, 0);
+    this.ctx.translate(-camera_x, 0);
   }
 
   /** Draws the fixed-position status bars (life, coin, bottle, endboss). */

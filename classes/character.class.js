@@ -5,7 +5,7 @@
 class Character extends MovableObject {
   width = 150;
   height = 310;
-  speed = 10;
+  speed = 7.5;
   isJumping = false;
   offset = {
     top: 120,
@@ -101,14 +101,18 @@ class Character extends MovableObject {
     this.animateIdle();
   }
 
-  /** Runs the main loop: updates sprite, reads input, and moves the camera. */
+  /** Runs the sprite animation loop and the movement/camera loop at separate rates. */
   animateMovement() {
     World.track(
       setInterval(() => {
         this.updateSprite();
+      }, 1000 / 15),
+    );
+    World.track(
+      setInterval(() => {
         this.handleMovementInput();
         this.world.camera_x = -this.x + 100;
-      }, 1000 / 15),
+      }, 1000 / 30),
     );
   }
 
