@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  acceleration = 3;
+  acceleration = 2.7;
   offset = {
     top: 0,
     bottom: 0,
@@ -19,16 +19,18 @@ class MovableObject extends DrawableObject {
 
   /** Applies gravity until the object reaches the ground. */
   applyGravity() {
-    World.track(setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-        if (!this.isAboveGround() && this.speedY <= 0) {
-          this.y = 120;
-          this.speedY = 0;
+    World.track(
+      setInterval(() => {
+        if (this.isAboveGround() || this.speedY > 0) {
+          this.y -= this.speedY;
+          this.speedY -= this.acceleration;
+          if (!this.isAboveGround() && this.speedY <= 0) {
+            this.y = 120;
+            this.speedY = 0;
+          }
         }
-      }
-    }, 1000 / 45));
+      }, 1000 / 45),
+    );
   }
 
   /**
@@ -55,7 +57,7 @@ class MovableObject extends DrawableObject {
 
   /** Starts a jump by setting the vertical speed. */
   jump() {
-    this.speedY = 30;
+    this.speedY = 30.05;
     this.isJumping = true;
   }
 

@@ -108,7 +108,7 @@ class Character extends MovableObject {
         this.updateSprite();
         this.handleMovementInput();
         this.world.camera_x = -this.x + 100;
-      }, 1000 / 20),
+      }, 1000 / 15),
     );
   }
 
