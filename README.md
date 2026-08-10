@@ -7,7 +7,7 @@
 
 A browser-based 2D side-scrolling platformer built from scratch with **vanilla JavaScript** and the **HTML5 Canvas API** - no frameworks, no game engine, no build tools. Created as a portfolio project during my Fullstack Web Development training at the [Developer Akademie](https://developerakademie.com/).
 
-**[▶ Play it live](https://maxbelich.developerakademie.net/EL_Pollo_Loco/index.html)**
+**[▶ Play it live](https://el-pollo-loco.maxbelich.de/)**
 
 ![Gameplay preview](docs/media/el_pollo_loco_preview.gif)
 
